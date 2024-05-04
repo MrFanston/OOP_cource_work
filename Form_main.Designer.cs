@@ -54,19 +54,19 @@
             this.panel4 = new System.Windows.Forms.Panel();
             this.label6 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.tableLayoutPanel_warehouse = new System.Windows.Forms.TableLayoutPanel();
+            this.tableLayoutPanel_products = new System.Windows.Forms.TableLayoutPanel();
             this.button2 = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.button_add = new System.Windows.Forms.Button();
             this.tabPage_Materials = new System.Windows.Forms.TabPage();
             this.panel3 = new System.Windows.Forms.Panel();
-            this.tableLayoutPanel_use = new System.Windows.Forms.TableLayoutPanel();
+            this.tableLayoutPanel_use_materials = new System.Windows.Forms.TableLayoutPanel();
             this.button4 = new System.Windows.Forms.Button();
             this.label3 = new System.Windows.Forms.Label();
             this.button5 = new System.Windows.Forms.Button();
             this.panel2 = new System.Windows.Forms.Panel();
-            this.button3 = new System.Windows.Forms.Button();
-            this.treeView_materials = new System.Windows.Forms.TreeView();
+            this.button_new_material = new System.Windows.Forms.Button();
+            this.treeView_warehouse_materials = new System.Windows.Forms.TreeView();
             this.label5 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.tabPage_Analysis = new System.Windows.Forms.TabPage();
@@ -87,10 +87,10 @@
             this.tabControl1.SuspendLayout();
             this.tabPage_Products.SuspendLayout();
             this.panel1.SuspendLayout();
-            this.tableLayoutPanel_warehouse.SuspendLayout();
+            this.tableLayoutPanel_products.SuspendLayout();
             this.tabPage_Materials.SuspendLayout();
             this.panel3.SuspendLayout();
-            this.tableLayoutPanel_use.SuspendLayout();
+            this.tableLayoutPanel_use_materials.SuspendLayout();
             this.panel2.SuspendLayout();
             this.tabPage_Analysis.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.chart1)).BeginInit();
@@ -156,29 +156,29 @@
             this.panel1.AutoScroll = true;
             this.panel1.BackColor = System.Drawing.Color.Tan;
             this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panel1.Controls.Add(this.tableLayoutPanel_warehouse);
+            this.panel1.Controls.Add(this.tableLayoutPanel_products);
             this.panel1.Location = new System.Drawing.Point(40, 47);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(384, 468);
             this.panel1.TabIndex = 2;
             // 
-            // tableLayoutPanel_warehouse
+            // tableLayoutPanel_products
             // 
-            this.tableLayoutPanel_warehouse.BackColor = System.Drawing.Color.White;
-            this.tableLayoutPanel_warehouse.CellBorderStyle = System.Windows.Forms.TableLayoutPanelCellBorderStyle.Outset;
-            this.tableLayoutPanel_warehouse.ColumnCount = 3;
-            this.tableLayoutPanel_warehouse.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 12.90323F));
-            this.tableLayoutPanel_warehouse.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 73.90029F));
-            this.tableLayoutPanel_warehouse.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 12.35632F));
-            this.tableLayoutPanel_warehouse.Controls.Add(this.button2, 2, 0);
-            this.tableLayoutPanel_warehouse.Controls.Add(this.label1, 1, 0);
-            this.tableLayoutPanel_warehouse.Controls.Add(this.button_add, 0, 0);
-            this.tableLayoutPanel_warehouse.Location = new System.Drawing.Point(3, 3);
-            this.tableLayoutPanel_warehouse.Name = "tableLayoutPanel_warehouse";
-            this.tableLayoutPanel_warehouse.RowCount = 1;
-            this.tableLayoutPanel_warehouse.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 57F));
-            this.tableLayoutPanel_warehouse.Size = new System.Drawing.Size(343, 50);
-            this.tableLayoutPanel_warehouse.TabIndex = 0;
+            this.tableLayoutPanel_products.BackColor = System.Drawing.Color.White;
+            this.tableLayoutPanel_products.CellBorderStyle = System.Windows.Forms.TableLayoutPanelCellBorderStyle.Outset;
+            this.tableLayoutPanel_products.ColumnCount = 3;
+            this.tableLayoutPanel_products.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 12.90323F));
+            this.tableLayoutPanel_products.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 73.90029F));
+            this.tableLayoutPanel_products.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 12.35632F));
+            this.tableLayoutPanel_products.Controls.Add(this.button2, 2, 0);
+            this.tableLayoutPanel_products.Controls.Add(this.label1, 1, 0);
+            this.tableLayoutPanel_products.Controls.Add(this.button_add, 0, 0);
+            this.tableLayoutPanel_products.Location = new System.Drawing.Point(3, 3);
+            this.tableLayoutPanel_products.Name = "tableLayoutPanel_products";
+            this.tableLayoutPanel_products.RowCount = 1;
+            this.tableLayoutPanel_products.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 59F));
+            this.tableLayoutPanel_products.Size = new System.Drawing.Size(343, 50);
+            this.tableLayoutPanel_products.TabIndex = 0;
             // 
             // button2
             // 
@@ -200,7 +200,7 @@
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.label1.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.label1.Location = new System.Drawing.Point(50, 20);
+            this.label1.Location = new System.Drawing.Point(50, 21);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(130, 20);
             this.label1.TabIndex = 1;
@@ -242,30 +242,30 @@
             this.panel3.AutoScroll = true;
             this.panel3.BackColor = System.Drawing.Color.Tan;
             this.panel3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panel3.Controls.Add(this.tableLayoutPanel_use);
+            this.panel3.Controls.Add(this.tableLayoutPanel_use_materials);
             this.panel3.Location = new System.Drawing.Point(594, 53);
             this.panel3.Name = "panel3";
             this.panel3.Size = new System.Drawing.Size(372, 468);
             this.panel3.TabIndex = 3;
             // 
-            // tableLayoutPanel_use
+            // tableLayoutPanel_use_materials
             // 
-            this.tableLayoutPanel_use.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.tableLayoutPanel_use.BackColor = System.Drawing.Color.White;
-            this.tableLayoutPanel_use.CellBorderStyle = System.Windows.Forms.TableLayoutPanelCellBorderStyle.Outset;
-            this.tableLayoutPanel_use.ColumnCount = 3;
-            this.tableLayoutPanel_use.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 12.90323F));
-            this.tableLayoutPanel_use.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 73.90029F));
-            this.tableLayoutPanel_use.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 12.35632F));
-            this.tableLayoutPanel_use.Controls.Add(this.button4, 2, 0);
-            this.tableLayoutPanel_use.Controls.Add(this.label3, 1, 0);
-            this.tableLayoutPanel_use.Controls.Add(this.button5, 0, 0);
-            this.tableLayoutPanel_use.Location = new System.Drawing.Point(3, 3);
-            this.tableLayoutPanel_use.Name = "tableLayoutPanel_use";
-            this.tableLayoutPanel_use.RowCount = 1;
-            this.tableLayoutPanel_use.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 57F));
-            this.tableLayoutPanel_use.Size = new System.Drawing.Size(343, 50);
-            this.tableLayoutPanel_use.TabIndex = 0;
+            this.tableLayoutPanel_use_materials.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.tableLayoutPanel_use_materials.BackColor = System.Drawing.Color.White;
+            this.tableLayoutPanel_use_materials.CellBorderStyle = System.Windows.Forms.TableLayoutPanelCellBorderStyle.Outset;
+            this.tableLayoutPanel_use_materials.ColumnCount = 3;
+            this.tableLayoutPanel_use_materials.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 12.90323F));
+            this.tableLayoutPanel_use_materials.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 73.90029F));
+            this.tableLayoutPanel_use_materials.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 12.35632F));
+            this.tableLayoutPanel_use_materials.Controls.Add(this.button4, 2, 0);
+            this.tableLayoutPanel_use_materials.Controls.Add(this.label3, 1, 0);
+            this.tableLayoutPanel_use_materials.Controls.Add(this.button5, 0, 0);
+            this.tableLayoutPanel_use_materials.Location = new System.Drawing.Point(3, 3);
+            this.tableLayoutPanel_use_materials.Name = "tableLayoutPanel_use_materials";
+            this.tableLayoutPanel_use_materials.RowCount = 1;
+            this.tableLayoutPanel_use_materials.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 59F));
+            this.tableLayoutPanel_use_materials.Size = new System.Drawing.Size(343, 50);
+            this.tableLayoutPanel_use_materials.TabIndex = 0;
             // 
             // button4
             // 
@@ -287,7 +287,7 @@
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.label3.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.label3.Location = new System.Drawing.Point(50, 20);
+            this.label3.Location = new System.Drawing.Point(50, 21);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(171, 20);
             this.label3.TabIndex = 1;
@@ -314,27 +314,28 @@
             this.panel2.AutoScroll = true;
             this.panel2.BackColor = System.Drawing.Color.Tan;
             this.panel2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panel2.Controls.Add(this.button3);
-            this.panel2.Controls.Add(this.treeView_materials);
+            this.panel2.Controls.Add(this.button_new_material);
+            this.panel2.Controls.Add(this.treeView_warehouse_materials);
             this.panel2.Location = new System.Drawing.Point(67, 49);
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(372, 468);
             this.panel2.TabIndex = 7;
             // 
-            // button3
+            // button_new_material
             // 
-            this.button3.Location = new System.Drawing.Point(3, 429);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(96, 34);
-            this.button3.TabIndex = 1;
-            this.button3.Text = "Добавить";
-            this.button3.UseVisualStyleBackColor = true;
+            this.button_new_material.Location = new System.Drawing.Point(3, 429);
+            this.button_new_material.Name = "button_new_material";
+            this.button_new_material.Size = new System.Drawing.Size(96, 34);
+            this.button_new_material.TabIndex = 1;
+            this.button_new_material.Text = "Добавить";
+            this.button_new_material.UseVisualStyleBackColor = true;
+            this.button_new_material.Click += new System.EventHandler(this.button_new_material_Click);
             // 
-            // treeView_materials
+            // treeView_warehouse_materials
             // 
-            this.treeView_materials.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.treeView_materials.Location = new System.Drawing.Point(3, 3);
-            this.treeView_materials.Name = "treeView_materials";
+            this.treeView_warehouse_materials.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.treeView_warehouse_materials.Location = new System.Drawing.Point(3, 3);
+            this.treeView_warehouse_materials.Name = "treeView_warehouse_materials";
             treeNode1.Name = "Узел10";
             treeNode1.Text = "Узел10";
             treeNode2.Name = "Узел2";
@@ -355,11 +356,11 @@
             treeNode9.Text = "Узел13";
             treeNode10.Name = "Узел1";
             treeNode10.Text = "Необрабатываемые";
-            this.treeView_materials.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
+            this.treeView_warehouse_materials.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
             treeNode8,
             treeNode10});
-            this.treeView_materials.Size = new System.Drawing.Size(364, 420);
-            this.treeView_materials.TabIndex = 0;
+            this.treeView_warehouse_materials.Size = new System.Drawing.Size(364, 420);
+            this.treeView_warehouse_materials.TabIndex = 0;
             // 
             // label5
             // 
@@ -544,13 +545,13 @@
             this.tabPage_Products.ResumeLayout(false);
             this.tabPage_Products.PerformLayout();
             this.panel1.ResumeLayout(false);
-            this.tableLayoutPanel_warehouse.ResumeLayout(false);
-            this.tableLayoutPanel_warehouse.PerformLayout();
+            this.tableLayoutPanel_products.ResumeLayout(false);
+            this.tableLayoutPanel_products.PerformLayout();
             this.tabPage_Materials.ResumeLayout(false);
             this.tabPage_Materials.PerformLayout();
             this.panel3.ResumeLayout(false);
-            this.tableLayoutPanel_use.ResumeLayout(false);
-            this.tableLayoutPanel_use.PerformLayout();
+            this.tableLayoutPanel_use_materials.ResumeLayout(false);
+            this.tableLayoutPanel_use_materials.PerformLayout();
             this.panel2.ResumeLayout(false);
             this.tabPage_Analysis.ResumeLayout(false);
             this.tabPage_Analysis.PerformLayout();
@@ -564,7 +565,7 @@
         private System.Windows.Forms.TabControl tabControl1;
         private System.Windows.Forms.TabPage tabPage_Products;
         private System.Windows.Forms.TabPage tabPage_Materials;
-        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel_warehouse;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel_products;
         private System.Windows.Forms.Button button_add;
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.Label label1;
@@ -578,14 +579,14 @@
         private System.Windows.Forms.DateTimePicker dateTimePicker1;
         private System.Windows.Forms.DateTimePicker dateTimePicker2;
         private System.Windows.Forms.Panel panel3;
-        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel_use;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel_use_materials;
         private System.Windows.Forms.Button button4;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Button button5;
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.Label label8;
-        private System.Windows.Forms.TreeView treeView_materials;
+        private System.Windows.Forms.TreeView treeView_warehouse_materials;
         private System.Windows.Forms.ListView listView1;
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.ListView listView2;
@@ -596,7 +597,7 @@
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.DataVisualization.Charting.Chart chart1;
-        private System.Windows.Forms.Button button3;
+        private System.Windows.Forms.Button button_new_material;
     }
 }
 

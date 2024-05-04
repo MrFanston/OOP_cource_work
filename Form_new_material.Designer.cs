@@ -36,20 +36,20 @@
             this.textBox_name = new System.Windows.Forms.TextBox();
             this.groupBox_name = new System.Windows.Forms.GroupBox();
             this.groupBox_price = new System.Windows.Forms.GroupBox();
+            this.numericUpDown_price = new System.Windows.Forms.NumericUpDown();
             this.groupBox_color = new System.Windows.Forms.GroupBox();
             this.textBox_color = new System.Windows.Forms.TextBox();
             this.groupBox_measure = new System.Windows.Forms.GroupBox();
             this.textBox_measure = new System.Windows.Forms.TextBox();
             this.groupBox_count = new System.Windows.Forms.GroupBox();
             this.numericUpDown_count = new System.Windows.Forms.NumericUpDown();
-            this.numericUpDown1 = new System.Windows.Forms.NumericUpDown();
             this.groupBox_name.SuspendLayout();
             this.groupBox_price.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_price)).BeginInit();
             this.groupBox_color.SuspendLayout();
             this.groupBox_measure.SuspendLayout();
             this.groupBox_count.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_count)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
             this.SuspendLayout();
             // 
             // radioButton_processable
@@ -140,7 +140,7 @@
             // groupBox_price
             // 
             this.groupBox_price.BackColor = System.Drawing.SystemColors.Info;
-            this.groupBox_price.Controls.Add(this.numericUpDown1);
+            this.groupBox_price.Controls.Add(this.numericUpDown_price);
             this.groupBox_price.Enabled = false;
             this.groupBox_price.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.groupBox_price.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
@@ -150,6 +150,25 @@
             this.groupBox_price.TabIndex = 12;
             this.groupBox_price.TabStop = false;
             this.groupBox_price.Text = "Цена";
+            // 
+            // numericUpDown_price
+            // 
+            this.numericUpDown_price.DecimalPlaces = 2;
+            this.numericUpDown_price.Increment = new decimal(new int[] {
+            1,
+            0,
+            0,
+            131072});
+            this.numericUpDown_price.Location = new System.Drawing.Point(6, 22);
+            this.numericUpDown_price.Maximum = new decimal(new int[] {
+            1000000,
+            0,
+            0,
+            0});
+            this.numericUpDown_price.Name = "numericUpDown_price";
+            this.numericUpDown_price.Size = new System.Drawing.Size(159, 23);
+            this.numericUpDown_price.TabIndex = 0;
+            this.numericUpDown_price.ThousandsSeparator = true;
             // 
             // groupBox_color
             // 
@@ -231,25 +250,6 @@
             0,
             0});
             // 
-            // numericUpDown1
-            // 
-            this.numericUpDown1.DecimalPlaces = 2;
-            this.numericUpDown1.Increment = new decimal(new int[] {
-            1,
-            0,
-            0,
-            131072});
-            this.numericUpDown1.Location = new System.Drawing.Point(6, 22);
-            this.numericUpDown1.Maximum = new decimal(new int[] {
-            1000000,
-            0,
-            0,
-            0});
-            this.numericUpDown1.Name = "numericUpDown1";
-            this.numericUpDown1.Size = new System.Drawing.Size(159, 23);
-            this.numericUpDown1.TabIndex = 0;
-            this.numericUpDown1.ThousandsSeparator = true;
-            // 
             // Form_new_material
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -272,13 +272,13 @@
             this.groupBox_name.ResumeLayout(false);
             this.groupBox_name.PerformLayout();
             this.groupBox_price.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_price)).EndInit();
             this.groupBox_color.ResumeLayout(false);
             this.groupBox_color.PerformLayout();
             this.groupBox_measure.ResumeLayout(false);
             this.groupBox_measure.PerformLayout();
             this.groupBox_count.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_count)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -300,6 +300,6 @@
         private System.Windows.Forms.NumericUpDown numericUpDown_count;
         private System.Windows.Forms.GroupBox groupBox_measure;
         private System.Windows.Forms.TextBox textBox_measure;
-        private System.Windows.Forms.NumericUpDown numericUpDown1;
+        private System.Windows.Forms.NumericUpDown numericUpDown_price;
     }
 }

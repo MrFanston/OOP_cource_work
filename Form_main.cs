@@ -21,29 +21,29 @@ namespace OOP_Course_work
             InitializeComponent();
         }
 
+        // Список всех товаров на складе
+        List<Product> products = new List<Product>();
+
+        // Список всех материалов на складе
+        List<Materials.Material> materials = new List<Materials.Material>();
+
+        // Список используемых материалов
+        List<Materials.Material> use_materials = new List<Materials.Material>();
+
+        // Список поступлений и списаний
+        List<Accounting.Operation> operations = new List<Accounting.Operation>();
+
         private void Form1_Load(object sender, EventArgs e)
         {
-            //Путь к каталогу документов.
-            string dataDir = "C:\\Users\\Владимир\\Documents\\КГУ\\4 семестр\\ООП\\OOP_Course_work\\";
+            string dataDir = "C:\\Users\\Владимир\\Documents\\КГУ\\4 семестр\\ООП\\OOP_Course_work\\book.xlsx";
 
-            // Путь ввода файла Excel
-            string InputPath = dataDir + "book.xlsx";
+            Aspose aspose = new Aspose(dataDir);
 
-            // Создайте поток файлов, содержащий файл Excel для открытия.
-            FileStream fstream = new FileStream(InputPath, FileMode.Open);
+            products = aspose.warehouseProducts(products);
 
-            // Создание экземпляра объекта Workbook
-            // Откройте файл Excel через поток файлов
-            Workbook workbook = new Workbook(fstream);
+            materials = aspose.warehouseMaterials(materials);
 
-            // Доступ к листу, используя его имя листа
-            Worksheet worksheet = workbook.Worksheets["Sheet1"];
-
-            // Доступ к определенной ячейке
-            Cell cell = worksheet.Cells["A1"];
-
-            // Получить значение ячейки
-            Console.WriteLine(cell.Value);
+            use_materials = aspose.useMaterials(materials);
         }
 
         private void button_add_Click(object sender, EventArgs e)
@@ -57,22 +57,16 @@ namespace OOP_Course_work
 
             if(button.Text == "+")
             {
-                if (tableLayoutPanel.Name == "tableLayoutPanel_warehouse")
+                if (tableLayoutPanel.Name == "tableLayoutPanel_use_materials")
                 {
-                    // Открываем форму внесения нового материала
-                    var form_new_material = new Form_new_material();
-                    var result = form_new_material.ShowDialog();
 
-                    if (result == DialogResult.OK)
-                    {
-                        add_row(tableLayoutPanel);
-                    }
                 }
                 else if(tableLayoutPanel.Name == "tableLayoutPanel_use")
                 {
                     // Открываем форму переноса материала
                     var form_new_material = new Form_new_use_material();
                     var result = form_new_material.ShowDialog();
+                    
                 }
             }
             else
@@ -174,5 +168,12 @@ namespace OOP_Course_work
             tableLayoutPanel.Size = new Size(343, tableLayoutPanel.Size.Height - 46);
         }
 
+        // Добавление нового материала в таблицу
+        private void button_new_material_Click(object sender, EventArgs e)
+        {
+            // Открываем форму внесения нового материала
+            var form_new_material = new Form_new_material();
+            var result = form_new_material.ShowDialog();
+        }
     }
 }

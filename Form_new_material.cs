@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Aspose.Cells;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -27,6 +28,9 @@ namespace OOP_Course_work
             comboBox_type.Enabled = false;
             groupBox_color.Visible = false;
             groupBox_measure.Visible = false;
+            groupBox_name.Enabled = true;
+            groupBox_price.Enabled = true;
+            groupBox_count.Enabled = true;
         }
 
         private void radioButton1_CheckedChanged(object sender, EventArgs e)
@@ -73,6 +77,10 @@ namespace OOP_Course_work
 
         private void button_add_Click(object sender, EventArgs e)
         {
+            if(radioButton_no_processable.Checked)
+            {
+
+            }
             this.DialogResult = DialogResult.OK;
             this.Close();
         }

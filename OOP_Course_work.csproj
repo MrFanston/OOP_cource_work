@@ -48,6 +48,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Accounting.cs" />
+    <Compile Include="Aspose.cs" />
     <Compile Include="Form_main.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -66,6 +68,8 @@
     <Compile Include="Form_new_use_material.Designer.cs">
       <DependentUpon>Form_new_use_material.cs</DependentUpon>
     </Compile>
+    <Compile Include="Materials.cs" />
+    <Compile Include="Product.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Form_main.resx">
