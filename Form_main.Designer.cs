@@ -1,6 +1,6 @@
 ﻿namespace OOP_Course_work
 {
-    partial class Form_main
+    partial class MainForm
     {
         /// <summary>
         /// Обязательная переменная конструктора.
@@ -176,7 +176,7 @@
             this.tableLayoutPanel_products.Location = new System.Drawing.Point(3, 3);
             this.tableLayoutPanel_products.Name = "tableLayoutPanel_products";
             this.tableLayoutPanel_products.RowCount = 1;
-            this.tableLayoutPanel_products.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 59F));
+            this.tableLayoutPanel_products.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 61F));
             this.tableLayoutPanel_products.Size = new System.Drawing.Size(343, 50);
             this.tableLayoutPanel_products.TabIndex = 0;
             // 
@@ -200,7 +200,7 @@
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.label1.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.label1.Location = new System.Drawing.Point(50, 21);
+            this.label1.Location = new System.Drawing.Point(50, 22);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(130, 20);
             this.label1.TabIndex = 1;
@@ -263,7 +263,7 @@
             this.tableLayoutPanel_use_materials.Location = new System.Drawing.Point(3, 3);
             this.tableLayoutPanel_use_materials.Name = "tableLayoutPanel_use_materials";
             this.tableLayoutPanel_use_materials.RowCount = 1;
-            this.tableLayoutPanel_use_materials.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 59F));
+            this.tableLayoutPanel_use_materials.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 61F));
             this.tableLayoutPanel_use_materials.Size = new System.Drawing.Size(343, 50);
             this.tableLayoutPanel_use_materials.TabIndex = 0;
             // 
@@ -287,7 +287,7 @@
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.label3.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.label3.Location = new System.Drawing.Point(50, 21);
+            this.label3.Location = new System.Drawing.Point(50, 22);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(171, 20);
             this.label3.TabIndex = 1;
@@ -529,7 +529,7 @@
             this.dateTimePicker1.Size = new System.Drawing.Size(200, 23);
             this.dateTimePicker1.TabIndex = 0;
             // 
-            // Form_main
+            // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -538,7 +538,7 @@
             this.Controls.Add(this.tabControl1);
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.Margin = new System.Windows.Forms.Padding(4);
-            this.Name = "Form_main";
+            this.Name = "MainForm";
             this.Text = "Главное окно";
             this.Load += new System.EventHandler(this.Form1_Load);
             this.tabControl1.ResumeLayout(false);

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace OOP_Course_work
 {
-    internal class Accounting
+    public class Accounting
     {
         public class Operation
         {

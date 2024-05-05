@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace OOP_Course_work
 {
-    internal class Product
+    public class Product
     {
         string name;
         string description;

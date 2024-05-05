@@ -14,9 +14,9 @@ using static System.Windows.Forms.VisualStyles.VisualStyleElement.ProgressBar;
 
 namespace OOP_Course_work
 {
-    public partial class Form_main : Form
+    public partial class MainForm : Form
     {
-        public Form_main()
+        public MainForm()
         {
             InitializeComponent();
         }
@@ -33,6 +33,46 @@ namespace OOP_Course_work
         // Список поступлений и списаний
         List<Accounting.Operation> operations = new List<Accounting.Operation>();
 
+        public List<Materials.Material> get_materials()
+        {
+            return materials;
+        }
+
+        public void set_materials(List<Materials.Material> materials)
+        {
+            this.materials = materials;
+        }
+
+        public List<Product> get_products()
+        {
+            return products;
+        }
+
+        public void set_products(List<Product> products)
+        {
+            this.products = products;
+        }
+
+        public List<Materials.Material> get_use_materials()
+        {
+            return use_materials;
+        }
+
+        public void set_use_materials(List<Materials.Material> materials)
+        {
+            this.use_materials = materials;
+        }
+
+        public List<Accounting.Operation> get_operations()
+        {
+            return operations;
+        }
+
+        public void set_operatins(List<Accounting.Operation> operations)
+        {
+            this.operations = operations;
+        }
+
         private void Form1_Load(object sender, EventArgs e)
         {
             string dataDir = "C:\\Users\\Владимир\\Documents\\КГУ\\4 семестр\\ООП\\OOP_Course_work\\book.xlsx";
@@ -43,7 +83,11 @@ namespace OOP_Course_work
 
             materials = aspose.warehouseMaterials(materials);
 
-            use_materials = aspose.useMaterials(materials);
+            use_materials = aspose.useMaterials(use_materials);
+
+            operations = aspose.operations(operations);
+
+            
         }
 
         private void button_add_Click(object sender, EventArgs e)
@@ -172,8 +216,9 @@ namespace OOP_Course_work
         private void button_new_material_Click(object sender, EventArgs e)
         {
             // Открываем форму внесения нового материала
-            var form_new_material = new Form_new_material();
+            var form_new_material = new Form_new_material(this);
             var result = form_new_material.ShowDialog();
+            if (result == DialogResult.OK) { }
         }
     }
 }

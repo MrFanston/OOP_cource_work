@@ -40,9 +40,11 @@
             this.groupBox_color = new System.Windows.Forms.GroupBox();
             this.textBox_color = new System.Windows.Forms.TextBox();
             this.groupBox_measure = new System.Windows.Forms.GroupBox();
-            this.textBox_measure = new System.Windows.Forms.TextBox();
             this.groupBox_count = new System.Windows.Forms.GroupBox();
             this.numericUpDown_count = new System.Windows.Forms.NumericUpDown();
+            this.numericUpDown_measure = new System.Windows.Forms.NumericUpDown();
+            this.groupBox_thickness = new System.Windows.Forms.GroupBox();
+            this.numericUpDown_thickness = new System.Windows.Forms.NumericUpDown();
             this.groupBox_name.SuspendLayout();
             this.groupBox_price.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_price)).BeginInit();
@@ -50,6 +52,9 @@
             this.groupBox_measure.SuspendLayout();
             this.groupBox_count.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_count)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_measure)).BeginInit();
+            this.groupBox_thickness.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_thickness)).BeginInit();
             this.SuspendLayout();
             // 
             // radioButton_processable
@@ -195,7 +200,7 @@
             // groupBox_measure
             // 
             this.groupBox_measure.BackColor = System.Drawing.SystemColors.Info;
-            this.groupBox_measure.Controls.Add(this.textBox_measure);
+            this.groupBox_measure.Controls.Add(this.numericUpDown_measure);
             this.groupBox_measure.Enabled = false;
             this.groupBox_measure.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.groupBox_measure.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
@@ -205,14 +210,6 @@
             this.groupBox_measure.TabIndex = 14;
             this.groupBox_measure.TabStop = false;
             this.groupBox_measure.Text = "Обьем (мл)";
-            // 
-            // textBox_measure
-            // 
-            this.textBox_measure.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.textBox_measure.Location = new System.Drawing.Point(6, 22);
-            this.textBox_measure.Name = "textBox_measure";
-            this.textBox_measure.Size = new System.Drawing.Size(160, 23);
-            this.textBox_measure.TabIndex = 10;
             // 
             // groupBox_count
             // 
@@ -250,12 +247,65 @@
             0,
             0});
             // 
+            // numericUpDown_measure
+            // 
+            this.numericUpDown_measure.DecimalPlaces = 2;
+            this.numericUpDown_measure.Increment = new decimal(new int[] {
+            1,
+            0,
+            0,
+            131072});
+            this.numericUpDown_measure.Location = new System.Drawing.Point(5, 22);
+            this.numericUpDown_measure.Maximum = new decimal(new int[] {
+            1000000,
+            0,
+            0,
+            0});
+            this.numericUpDown_measure.Name = "numericUpDown_measure";
+            this.numericUpDown_measure.Size = new System.Drawing.Size(159, 23);
+            this.numericUpDown_measure.TabIndex = 1;
+            this.numericUpDown_measure.ThousandsSeparator = true;
+            // 
+            // groupBox_thickness
+            // 
+            this.groupBox_thickness.BackColor = System.Drawing.SystemColors.Info;
+            this.groupBox_thickness.Controls.Add(this.numericUpDown_thickness);
+            this.groupBox_thickness.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.groupBox_thickness.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.groupBox_thickness.Location = new System.Drawing.Point(195, 222);
+            this.groupBox_thickness.Name = "groupBox_thickness";
+            this.groupBox_thickness.Size = new System.Drawing.Size(103, 52);
+            this.groupBox_thickness.TabIndex = 16;
+            this.groupBox_thickness.TabStop = false;
+            this.groupBox_thickness.Text = "Ширина";
+            this.groupBox_thickness.Visible = false;
+            // 
+            // numericUpDown_thickness
+            // 
+            this.numericUpDown_thickness.DecimalPlaces = 2;
+            this.numericUpDown_thickness.Increment = new decimal(new int[] {
+            1,
+            0,
+            0,
+            131072});
+            this.numericUpDown_thickness.Location = new System.Drawing.Point(6, 22);
+            this.numericUpDown_thickness.Maximum = new decimal(new int[] {
+            1000000,
+            0,
+            0,
+            0});
+            this.numericUpDown_thickness.Name = "numericUpDown_thickness";
+            this.numericUpDown_thickness.Size = new System.Drawing.Size(84, 23);
+            this.numericUpDown_thickness.TabIndex = 0;
+            this.numericUpDown_thickness.ThousandsSeparator = true;
+            // 
             // Form_new_material
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Info;
             this.ClientSize = new System.Drawing.Size(387, 392);
+            this.Controls.Add(this.groupBox_thickness);
             this.Controls.Add(this.groupBox_count);
             this.Controls.Add(this.groupBox_measure);
             this.Controls.Add(this.button_cancel);
@@ -276,9 +326,11 @@
             this.groupBox_color.ResumeLayout(false);
             this.groupBox_color.PerformLayout();
             this.groupBox_measure.ResumeLayout(false);
-            this.groupBox_measure.PerformLayout();
             this.groupBox_count.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_count)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_measure)).EndInit();
+            this.groupBox_thickness.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_thickness)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -299,7 +351,9 @@
         private System.Windows.Forms.GroupBox groupBox_count;
         private System.Windows.Forms.NumericUpDown numericUpDown_count;
         private System.Windows.Forms.GroupBox groupBox_measure;
-        private System.Windows.Forms.TextBox textBox_measure;
         private System.Windows.Forms.NumericUpDown numericUpDown_price;
+        private System.Windows.Forms.NumericUpDown numericUpDown_measure;
+        private System.Windows.Forms.GroupBox groupBox_thickness;
+        private System.Windows.Forms.NumericUpDown numericUpDown_thickness;
     }
 }

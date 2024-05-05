@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace OOP_Course_work
 {
-    internal class Materials
+    public class Materials
     {
         // Родительский класс для всех материалов
         public abstract class Material

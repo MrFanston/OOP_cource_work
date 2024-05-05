@@ -5,6 +5,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static OOP_Course_work.Accounting;
 
 namespace OOP_Course_work
 {
@@ -24,6 +25,11 @@ namespace OOP_Course_work
             // Создание экземпляра объекта Workbook
             // Откройте файл Excel через поток файлов
             workbook = new Workbook(fstream);
+        }
+
+        ~Aspose()
+        {
+            fstream.Close();
         }
 
         public List<Product> warehouseProducts(List<Product> products)
@@ -163,22 +169,22 @@ namespace OOP_Course_work
                 }
                 else if (cell.Value.ToString() == "Laser")
                 {
-                    cell = worksheet.Cells.CheckCell(i, 2);
+                    cell = worksheet.Cells.CheckCell(i, 0);
                     string name_material = cell.Value.ToString();
 
-                    cell = worksheet.Cells.CheckCell(i, 4);
+                    cell = worksheet.Cells.CheckCell(i, 2);
                     float price = (float)Convert.ToDouble(cell.Value.ToString());
 
-                    cell = worksheet.Cells.CheckCell(i, 5);
+                    cell = worksheet.Cells.CheckCell(i, 3);
                     string color = cell.Value.ToString();
 
-                    cell = worksheet.Cells.CheckCell(i, 6);
+                    cell = worksheet.Cells.CheckCell(i, 4);
                     float thickness = (float)Convert.ToDouble(cell.Value.ToString());
 
-                    cell = worksheet.Cells.CheckCell(i, 7);
+                    cell = worksheet.Cells.CheckCell(i, 5);
                     float square_max = (float)Convert.ToDouble(cell.Value.ToString());
 
-                    cell = worksheet.Cells.CheckCell(i, 8);
+                    cell = worksheet.Cells.CheckCell(i, 5);
                     float square_current = (float)Convert.ToDouble(cell.Value.ToString());
 
                     Materials.Laser laser = new Materials.Laser(name_material, price, color, thickness, square_max, square_current);
@@ -186,19 +192,19 @@ namespace OOP_Course_work
                 }
                 else if (cell.Value.ToString() == "PrinterFDM")
                 {
-                    cell = worksheet.Cells.CheckCell(i, 2);
+                    cell = worksheet.Cells.CheckCell(i, 0);
                     string name_material = cell.Value.ToString();
 
-                    cell = worksheet.Cells.CheckCell(i, 4);
+                    cell = worksheet.Cells.CheckCell(i, 2);
                     float price = (float)Convert.ToDouble(cell.Value.ToString());
 
-                    cell = worksheet.Cells.CheckCell(i, 5);
+                    cell = worksheet.Cells.CheckCell(i, 3);
                     string color = cell.Value.ToString();
 
-                    cell = worksheet.Cells.CheckCell(i, 7);
+                    cell = worksheet.Cells.CheckCell(i, 5);
                     float square_max = (float)Convert.ToDouble(cell.Value.ToString());
 
-                    cell = worksheet.Cells.CheckCell(i, 8);
+                    cell = worksheet.Cells.CheckCell(i, 5);
                     float square_current = (float)Convert.ToDouble(cell.Value.ToString());
 
                     Materials.PrinterFDM fdm = new Materials.PrinterFDM(name_material, price, color, square_max, square_current);
@@ -206,19 +212,19 @@ namespace OOP_Course_work
                 }
                 else if (cell.Value.ToString() == "PrinterSLA")
                 {
-                    cell = worksheet.Cells.CheckCell(i, 2);
+                    cell = worksheet.Cells.CheckCell(i, 0);
                     string name_material = cell.Value.ToString();
 
-                    cell = worksheet.Cells.CheckCell(i, 4);
+                    cell = worksheet.Cells.CheckCell(i, 2);
                     float price = (float)Convert.ToDouble(cell.Value.ToString());
 
-                    cell = worksheet.Cells.CheckCell(i, 5);
+                    cell = worksheet.Cells.CheckCell(i, 3);
                     string color = cell.Value.ToString();
 
-                    cell = worksheet.Cells.CheckCell(i, 7);
+                    cell = worksheet.Cells.CheckCell(i, 5);
                     float square_max = (float)Convert.ToDouble(cell.Value.ToString());
 
-                    cell = worksheet.Cells.CheckCell(i, 8);
+                    cell = worksheet.Cells.CheckCell(i, 5);
                     float square_current = (float)Convert.ToDouble(cell.Value.ToString());
 
                     Materials.PrinterSLA sla = new Materials.PrinterSLA(name_material, price, color, square_max, square_current);
@@ -232,19 +238,19 @@ namespace OOP_Course_work
         public List<Materials.Material> useMaterials(List<Materials.Material> materials)
         {
             // Доступ к листу, используя его имя листа
-            Worksheet worksheet = workbook.Worksheets["WarehouseMaterials"];
+            Worksheet worksheet = workbook.Worksheets["UseMaterials"];
 
             // Перебираем строки страницы
             for (int i = 1; i < worksheet.Cells.Rows.Count; i++)
             {
-                Cell cell = worksheet.Cells.CheckCell(i, 3);
+                Cell cell = worksheet.Cells.CheckCell(i, 1);
 
                 if (cell.Value.ToString() == "Unprocessed")
                 {
-                    cell = worksheet.Cells.CheckCell(i, 2);
+                    cell = worksheet.Cells.CheckCell(i, 0);
                     string name_material = cell.Value.ToString();
 
-                    cell = worksheet.Cells.CheckCell(i, 4);
+                    cell = worksheet.Cells.CheckCell(i, 2);
                     float price = (float)Convert.ToDouble(cell.Value.ToString());
 
                     Materials.Unprocessed unprocessed = new Materials.Unprocessed(name_material, price);
@@ -252,22 +258,22 @@ namespace OOP_Course_work
                 }
                 else if (cell.Value.ToString() == "Laser")
                 {
-                    cell = worksheet.Cells.CheckCell(i, 2);
+                    cell = worksheet.Cells.CheckCell(i, 0);
                     string name_material = cell.Value.ToString();
 
-                    cell = worksheet.Cells.CheckCell(i, 4);
+                    cell = worksheet.Cells.CheckCell(i, 2);
                     float price = (float)Convert.ToDouble(cell.Value.ToString());
 
-                    cell = worksheet.Cells.CheckCell(i, 5);
+                    cell = worksheet.Cells.CheckCell(i, 3);
                     string color = cell.Value.ToString();
 
-                    cell = worksheet.Cells.CheckCell(i, 6);
+                    cell = worksheet.Cells.CheckCell(i, 4);
                     float thickness = (float)Convert.ToDouble(cell.Value.ToString());
 
-                    cell = worksheet.Cells.CheckCell(i, 7);
+                    cell = worksheet.Cells.CheckCell(i, 5);
                     float square_max = (float)Convert.ToDouble(cell.Value.ToString());
 
-                    cell = worksheet.Cells.CheckCell(i, 8);
+                    cell = worksheet.Cells.CheckCell(i, 6);
                     float square_current = (float)Convert.ToDouble(cell.Value.ToString());
 
                     Materials.Laser laser = new Materials.Laser(name_material, price, color, thickness, square_max, square_current);
@@ -275,19 +281,19 @@ namespace OOP_Course_work
                 }
                 else if (cell.Value.ToString() == "PrinterFDM")
                 {
-                    cell = worksheet.Cells.CheckCell(i, 2);
+                    cell = worksheet.Cells.CheckCell(i, 0);
                     string name_material = cell.Value.ToString();
 
-                    cell = worksheet.Cells.CheckCell(i, 4);
+                    cell = worksheet.Cells.CheckCell(i, 2);
                     float price = (float)Convert.ToDouble(cell.Value.ToString());
 
-                    cell = worksheet.Cells.CheckCell(i, 5);
+                    cell = worksheet.Cells.CheckCell(i, 3);
                     string color = cell.Value.ToString();
 
-                    cell = worksheet.Cells.CheckCell(i, 7);
+                    cell = worksheet.Cells.CheckCell(i, 5);
                     float square_max = (float)Convert.ToDouble(cell.Value.ToString());
 
-                    cell = worksheet.Cells.CheckCell(i, 8);
+                    cell = worksheet.Cells.CheckCell(i, 6);
                     float square_current = (float)Convert.ToDouble(cell.Value.ToString());
 
                     Materials.PrinterFDM fdm = new Materials.PrinterFDM(name_material, price, color, square_max, square_current);
@@ -295,19 +301,19 @@ namespace OOP_Course_work
                 }
                 else if (cell.Value.ToString() == "PrinterSLA")
                 {
-                    cell = worksheet.Cells.CheckCell(i, 2);
+                    cell = worksheet.Cells.CheckCell(i, 0);
                     string name_material = cell.Value.ToString();
 
-                    cell = worksheet.Cells.CheckCell(i, 4);
+                    cell = worksheet.Cells.CheckCell(i, 2);
                     float price = (float)Convert.ToDouble(cell.Value.ToString());
 
-                    cell = worksheet.Cells.CheckCell(i, 5);
+                    cell = worksheet.Cells.CheckCell(i, 3);
                     string color = cell.Value.ToString();
 
-                    cell = worksheet.Cells.CheckCell(i, 7);
+                    cell = worksheet.Cells.CheckCell(i, 5);
                     float square_max = (float)Convert.ToDouble(cell.Value.ToString());
 
-                    cell = worksheet.Cells.CheckCell(i, 8);
+                    cell = worksheet.Cells.CheckCell(i, 6);
                     float square_current = (float)Convert.ToDouble(cell.Value.ToString());
 
                     Materials.PrinterSLA sla = new Materials.PrinterSLA(name_material, price, color, square_max, square_current);
@@ -316,6 +322,28 @@ namespace OOP_Course_work
             }
 
             return materials;
+        }
+
+        public List<Accounting.Operation> operations(List<Accounting.Operation> operations)
+        {
+            // Доступ к листу, используя его имя листа
+            Worksheet worksheet = workbook.Worksheets["Accounting"];
+
+            // Перебираем строки страницы
+            for (int i = 1; i < worksheet.Cells.Rows.Count; i++)
+            {
+                Cell cell = worksheet.Cells.CheckCell(i, 0);
+                DateTime dateTime = Convert.ToDateTime(cell.Value.ToString());
+
+                cell = worksheet.Cells.CheckCell(i, 1);
+                float value = (float)Convert.ToDouble(cell.Value.ToString());
+
+                Accounting.Operation operation = new Accounting.Operation(dateTime, value);
+
+                operations.Add(operation);
+            }
+
+            return operations;
         }
     }
 }
