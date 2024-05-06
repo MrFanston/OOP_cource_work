@@ -9,6 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Xml.Linq;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.ProgressBar;
 
@@ -87,7 +88,35 @@ namespace OOP_Course_work
 
             operations = aspose.operations(operations);
 
-            
+            foreach (Materials.Material obj in materials)
+            {
+                TreeNode node = new TreeNode(obj.get_name());
+
+                // Связывание объекта с узлом через свойство Tag
+                node.Tag = obj;
+
+                add_treeNode(node, obj);
+            }
+        }
+
+        public void add_treeNode(TreeNode node, Materials.Material obj)
+        {
+            if (obj.GetType() == typeof(Materials.Laser))
+            {
+                treeView_warehouse_materials.Nodes[0].Nodes[0].Nodes.Add(node);
+            }
+            else if (obj.GetType() == typeof(Materials.PrinterFDM))
+            {
+                treeView_warehouse_materials.Nodes[0].Nodes[1].Nodes[0].Nodes.Add(node);
+            }
+            else if (obj.GetType() == typeof(Materials.PrinterSLA))
+            {
+                treeView_warehouse_materials.Nodes[0].Nodes[1].Nodes[1].Nodes.Add(node);
+            }
+            else if (obj.GetType() == typeof(Materials.Unprocessed))
+            {
+                treeView_warehouse_materials.Nodes[1].Nodes.Add(node);
+            }
         }
 
         private void button_add_Click(object sender, EventArgs e)
@@ -103,13 +132,18 @@ namespace OOP_Course_work
             {
                 if (tableLayoutPanel.Name == "tableLayoutPanel_use_materials")
                 {
+                    Materials.Material material = (Materials.Material)treeView_warehouse_materials.SelectedNode.Tag;
 
+                    add_row_material(tableLayoutPanel_use_materials, material);
+
+                    treeView_warehouse_materials.Nodes.Remove(treeView_warehouse_materials.SelectedNode);
+
+                    materials.Remove(material);
+
+                    use_materials.Add(material);
                 }
-                else if(tableLayoutPanel.Name == "tableLayoutPanel_use")
+                else if(tableLayoutPanel.Name == "tableLayoutPanel_products")
                 {
-                    // Открываем форму переноса материала
-                    var form_new_material = new Form_new_use_material();
-                    var result = form_new_material.ShowDialog();
                     
                 }
             }
@@ -118,10 +152,11 @@ namespace OOP_Course_work
                 TableLayoutPanelCellPosition position = tableLayoutPanel.GetPositionFromControl(button);
                 // Удаляем строку
                 RemoveRowFromTableLayoutPanel(tableLayoutPanel, position.Row);
+
             }
         }
 
-        private void add_row(TableLayoutPanel tableLayoutPanel)
+        private void add_row(TableLayoutPanel tableLayoutPanel, Materials.Material material)
         {
             // Создание кнопки удаления
             var new_button_del = new System.Windows.Forms.Button();
@@ -158,6 +193,7 @@ namespace OOP_Course_work
             new_lable.TabIndex = 1;
             new_lable.Text = "Фанера 4/4 4мм";
             new_lable.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            new_lable.Tag = material;
 
             // Инициализация кнопки дополнительной информации
             new_button_extra.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
@@ -181,10 +217,58 @@ namespace OOP_Course_work
             tableLayoutPanel.Size = new Size(343, tableLayoutPanel.Size.Height + 46);
         }
 
-        private void RemoveRowFromTableLayoutPanel(TableLayoutPanel tableLayoutPanel, int rowIndex)
+        private void add_row_material(TableLayoutPanel tableLayoutPanel, Materials.Material material)
         {
-            // Удаляем текстовое поле из удаляемой строки
+            // Создание кнопки удаления
+            var new_button_del = new System.Windows.Forms.Button();
+
+            // Создание тектового поля
+            var new_lable = new System.Windows.Forms.Label();
+
+            // Добавляем обработчик события Click
+            new_button_del.Click += button_add_Click;
+
+            // Инициализация кнопки удаления
+            new_button_del.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+            | System.Windows.Forms.AnchorStyles.Left)
+            | System.Windows.Forms.AnchorStyles.Right)));
+            new_button_del.BackColor = System.Drawing.Color.Red;
+            new_button_del.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            new_button_del.Name = "button_del";
+            new_button_del.Size = new System.Drawing.Size(37, 38);
+            new_button_del.Text = "-";
+            new_button_del.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            new_button_del.UseVisualStyleBackColor = false;
+
+            // Инициализация текстового поля
+            new_lable.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            new_lable.AutoSize = true;
+            new_lable.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            new_lable.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            new_lable.Name = "label1";
+            new_lable.TabIndex = 1;
+            new_lable.Text = material.get_name();
+            new_lable.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            new_lable.Tag = material;
+
+            // Добавляем элементы в строку
+            tableLayoutPanel.RowCount = ++tableLayoutPanel.RowCount;
+
+            tableLayoutPanel.Controls.Add(new_button_del, 0, tableLayoutPanel.RowCount - 1);
+            tableLayoutPanel.Controls.Add(new_lable, 1, tableLayoutPanel.RowCount - 1);
+
+            tableLayoutPanel.Size = new Size(343, tableLayoutPanel.Size.Height + 46);
+        }
+
+        private void RemoveRowFromTableLayoutPanel(TableLayoutPanel tableLayoutPanel, int rowIndex)
+        { 
             var control = tableLayoutPanel.GetControlFromPosition(1, rowIndex);
+            Materials.Material material = (Materials.Material)control.Tag;
+            
+            // Удаляем объект из списка
+            use_materials.Remove(material);
+
+            // Удаляем текстовое поле из удаляемой строки
             tableLayoutPanel.Controls.Remove(control);
 
             // Перемещение элементов из строк ниже удаляемой строки на одну строку вверх
@@ -218,7 +302,25 @@ namespace OOP_Course_work
             // Открываем форму внесения нового материала
             var form_new_material = new Form_new_material(this);
             var result = form_new_material.ShowDialog();
-            if (result == DialogResult.OK) { }
+            if (result == DialogResult.OK) 
+            {
+
+            }
+        }
+
+        private void treeView_warehouse_materials_NodeMouseClick(object sender, TreeNodeMouseClickEventArgs e)
+        {
+            // Проверяем, что выбранный узел является листом
+            if (e.Node.Nodes.Count == 0)
+            {
+                button_add_use_maaterials.Enabled = true;
+                button_add_use_maaterials.BackColor = Color.Lime;
+            }
+            else
+            {
+                button_add_use_maaterials.Enabled = false;
+                button_add_use_maaterials.BackColor = Color.Gray;
+            }
         }
     }
 }

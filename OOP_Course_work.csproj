@@ -62,12 +62,6 @@
     <Compile Include="Form_new_material.Designer.cs">
       <DependentUpon>Form_new_material.cs</DependentUpon>
     </Compile>
-    <Compile Include="Form_new_use_material.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Form_new_use_material.Designer.cs">
-      <DependentUpon>Form_new_use_material.cs</DependentUpon>
-    </Compile>
     <Compile Include="Materials.cs" />
     <Compile Include="Product.cs" />
     <Compile Include="Program.cs" />
@@ -77,9 +71,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Form_new_material.resx">
       <DependentUpon>Form_new_material.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Form_new_use_material.resx">
-      <DependentUpon>Form_new_use_material.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

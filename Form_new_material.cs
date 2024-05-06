@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static OOP_Course_work.Materials;
 
 namespace OOP_Course_work
 {
@@ -68,7 +69,7 @@ namespace OOP_Course_work
             }
             else if (selecteVal == "Принтер FDM")
             {
-                groupBox_measure.Text = "Масса(кг)";
+                groupBox_measure.Text = "Масса(г)";
                 groupBox_thickness.Visible = false;
             }
             else if (selecteVal == "Принтер SLA")
@@ -104,7 +105,15 @@ namespace OOP_Course_work
                     {
                         Materials.Laser laser = new Materials.Laser(name, price, color, thickness, measure, measure);
                         materials.Add(laser);
+
+                        TreeNode node = new TreeNode(name);
+
+                        // Связывание объекта с узлом через свойство Tag
+                        node.Tag = laser;
+
+                        mainForm.add_treeNode(node, laser);
                     }
+                    
                     mainForm.set_materials(materials);
                 }
                 else if(comboBox_type.Text == "Принтер FDM")
@@ -122,7 +131,15 @@ namespace OOP_Course_work
                     {
                         Materials.PrinterFDM fdm = new Materials.PrinterFDM(name, price, color, measure, measure);
                         materials.Add(fdm);
+
+                        TreeNode node = new TreeNode(name);
+
+                        // Связывание объекта с узлом через свойство Tag
+                        node.Tag = fdm;
+
+                        mainForm.add_treeNode(node, fdm);
                     }
+                    
                     mainForm.set_materials(materials);
                 }
                 else if (comboBox_type.Text == "Принтер SLA")
@@ -140,7 +157,15 @@ namespace OOP_Course_work
                     {
                         Materials.PrinterSLA sla = new Materials.PrinterSLA(name, price, color, measure, measure);
                         materials.Add(sla);
+
+                        TreeNode node = new TreeNode(name);
+
+                        // Связывание объекта с узлом через свойство Tag
+                        node.Tag = sla;
+
+                        mainForm.add_treeNode(node, sla);
                     }
+
                     mainForm.set_materials(materials);
                 }
 
@@ -158,7 +183,15 @@ namespace OOP_Course_work
                 {
                     Materials.Unprocessed unprocessed = new Materials.Unprocessed(name, price);
                     materials.Add(unprocessed);
+
+                    TreeNode node = new TreeNode(name);
+
+                    // Связывание объекта с узлом через свойство Tag
+                    node.Tag = unprocessed;
+
+                    mainForm.add_treeNode(node, unprocessed);
                 }
+
                 mainForm.set_materials(materials);
             }
             this.DialogResult = DialogResult.OK;
