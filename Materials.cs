@@ -57,19 +57,12 @@ namespace OOP_Course_work
         // Класс материалов, обрабатываемых лазером
         public class Laser: Material
         {
-            string color;
             float thickness;
 
-            public Laser(string name, float price, string color, float thickness, float square_max, float square_current) : 
+            public Laser(string name, float price, float thickness, float square_max, float square_current) : 
                 base(name, price, square_max, square_current)
             {
-                this.color = color;
                 this.thickness = thickness;
-            }
-
-            public string get_color()
-            {
-                return color;
             }
 
             public float get_thickness()
@@ -81,35 +74,34 @@ namespace OOP_Course_work
 
         public class PrinterFDM: Material
         {
-            string color;
+            bool heat_resistant;
 
-            public PrinterFDM(string name, float price, string color, float weight_max, float weight_current) :
+            public PrinterFDM(string name, float price, bool heat_resistant, float weight_max, float weight_current) :
                 base(name, price, weight_max, weight_current)
             {
-                this.color = color;
+                this.heat_resistant = heat_resistant;
             }
 
-            public string get_color()
+            public bool get_heat_resistant()
             {
-                return color;
+                return heat_resistant;
             }
-
         }
 
         // Класс материалов обрабатываемых FDM принтером
         public class PrinterSLA : Material
         {
-            string color;
+            bool water_washer;
 
-            public PrinterSLA(string name, float price, string color, float volume_max, float volume_current) :
+            public PrinterSLA(string name, float price, bool water_washer, float volume_max, float volume_current) :
                 base(name, price, volume_max, volume_current)
             {
-                this.color = color;
+                this.water_washer = water_washer;
             }
 
-            public string get_color()
+            public bool get_water_washer()
             {
-                return color;
+                return water_washer;
             }
         }
     }

@@ -30,9 +30,10 @@ namespace OOP_Course_work
         private void radioButton2_CheckedChanged(object sender, EventArgs e)
         {
             comboBox_type.Enabled = false;
-            groupBox_color.Visible = false;
+            groupBox_feature.Visible = false;
             groupBox_measure.Visible = false;
-            groupBox_thickness.Visible = false;
+            groupBox_feature.Visible = false;
+            checkBox_feature.Visible = false;
             groupBox_name.Enabled = true;
             groupBox_price.Enabled = true;
             groupBox_count.Enabled = true;
@@ -41,10 +42,9 @@ namespace OOP_Course_work
         private void radioButton1_CheckedChanged(object sender, EventArgs e)
         {
             comboBox_type.Enabled = true;
-            groupBox_color.Visible = true;
             groupBox_measure.Visible = true;
             comboBox_type.SelectedIndex = 0;
-            groupBox_thickness.Visible = true;
+            groupBox_feature.Visible = true;
         }
 
         private void textBox1_TextChanged(object sender, EventArgs e)
@@ -65,22 +65,28 @@ namespace OOP_Course_work
             if (selecteVal == "Лазер")
             {
                 groupBox_measure.Text = "Площадь листа";
-                groupBox_thickness.Visible = true;
+                groupBox_feature.Text = "Ширина";
+                groupBox_feature.Visible = true;
+                groupBox_feature.Enabled = true;
+                checkBox_feature.Visible = false;
             }
             else if (selecteVal == "Принтер FDM")
             {
                 groupBox_measure.Text = "Масса(г)";
-                groupBox_thickness.Visible = false;
+                groupBox_feature.Visible = false;
+                checkBox_feature.Visible = true;
+                checkBox_feature.Text = "Термостойкий";
             }
             else if (selecteVal == "Принтер SLA")
             {
                 groupBox_measure.Text = "Обьем(мл)";
-                groupBox_thickness.Visible = false;
+                groupBox_feature.Visible = false;
+                checkBox_feature.Visible = true;
+                checkBox_feature.Text = "Водомойка";
             }
 
             groupBox_name.Enabled = true;
             groupBox_price.Enabled = true;
-            groupBox_color.Enabled = true;
             groupBox_measure.Enabled = true;
             groupBox_count.Enabled = true;
         }
@@ -95,15 +101,14 @@ namespace OOP_Course_work
 
                     string name = textBox_name.Text;
                     float price = (float)numericUpDown_price.Value;
-                    string color = textBox_color.Text;
                     float measure = (float)numericUpDown_measure.Value;
-                    float thickness = (float)numericUpDown_thickness.Value;
+                    float thickness = (float)numericUpDown_feature.Value;
 
                     int count = (int)numericUpDown_count.Value;
 
                     for(int i = 0; i < count; i++)
                     {
-                        Materials.Laser laser = new Materials.Laser(name, price, color, thickness, measure, measure);
+                        Materials.Laser laser = new Materials.Laser(name, price, thickness, measure, measure);
                         materials.Add(laser);
 
                         TreeNode node = new TreeNode(name);
@@ -122,14 +127,14 @@ namespace OOP_Course_work
 
                     string name = textBox_name.Text;
                     float price = (float)numericUpDown_price.Value;
-                    string color = textBox_color.Text;
+                    bool feature = checkBox_feature.Checked;
                     float measure = (float)numericUpDown_measure.Value;
 
                     int count = (int)numericUpDown_count.Value;
 
                     for (int i = 0; i < count; i++)
                     {
-                        Materials.PrinterFDM fdm = new Materials.PrinterFDM(name, price, color, measure, measure);
+                        Materials.PrinterFDM fdm = new Materials.PrinterFDM(name, price, feature, measure, measure);
                         materials.Add(fdm);
 
                         TreeNode node = new TreeNode(name);
@@ -148,14 +153,14 @@ namespace OOP_Course_work
 
                     string name = textBox_name.Text;
                     float price = (float)numericUpDown_price.Value;
-                    string color = textBox_color.Text;
+                    bool feature = checkBox_feature.Checked;
                     float measure = (float)numericUpDown_measure.Value;
 
                     int count = (int)numericUpDown_count.Value;
 
                     for (int i = 0; i < count; i++)
                     {
-                        Materials.PrinterSLA sla = new Materials.PrinterSLA(name, price, color, measure, measure);
+                        Materials.PrinterSLA sla = new Materials.PrinterSLA(name, price, feature, measure, measure);
                         materials.Add(sla);
 
                         TreeNode node = new TreeNode(name);

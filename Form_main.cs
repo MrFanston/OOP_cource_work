@@ -76,15 +76,16 @@ namespace OOP_Course_work
 
         private void Form1_Load(object sender, EventArgs e)
         {
+            // Считываем данные с таблицы
             string dataDir = "C:\\Users\\Владимир\\Documents\\КГУ\\4 семестр\\ООП\\OOP_Course_work\\book.xlsx";
 
             Aspose aspose = new Aspose(dataDir);
 
-            products = aspose.warehouseProducts(products);
+            products = aspose.warehouse_products(products);
 
-            materials = aspose.warehouseMaterials(materials);
+            materials = aspose.warehouse_materials(materials);
 
-            use_materials = aspose.useMaterials(use_materials);
+            use_materials = aspose.use_materials(use_materials);
 
             operations = aspose.operations(operations);
 
@@ -144,7 +145,13 @@ namespace OOP_Course_work
                 }
                 else if(tableLayoutPanel.Name == "tableLayoutPanel_products")
                 {
-                    
+                    // Открываем форму внесения нового товара
+                    var form_new_product = new Form_new_product(this);
+                    var result = form_new_product.ShowDialog();
+                    if(result == DialogResult.OK)
+                    {
+                        add_row(tableLayoutPanel, products[products.Count - 1]);
+                    }
                 }
             }
             else
@@ -156,7 +163,7 @@ namespace OOP_Course_work
             }
         }
 
-        private void add_row(TableLayoutPanel tableLayoutPanel, Materials.Material material)
+        private void add_row(TableLayoutPanel tableLayoutPanel, Product product)
         {
             // Создание кнопки удаления
             var new_button_del = new System.Windows.Forms.Button();
@@ -191,9 +198,9 @@ namespace OOP_Course_work
             new_lable.Name = "label1";
             new_lable.Size = new System.Drawing.Size(130, 20);
             new_lable.TabIndex = 1;
-            new_lable.Text = "Фанера 4/4 4мм";
+            new_lable.Text = product.get_name();
             new_lable.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            new_lable.Tag = material;
+            new_lable.Tag = product;
 
             // Инициализация кнопки дополнительной информации
             new_button_extra.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
@@ -213,8 +220,6 @@ namespace OOP_Course_work
             tableLayoutPanel.Controls.Add(new_button_del, 0, tableLayoutPanel.RowCount - 1);
             tableLayoutPanel.Controls.Add(new_lable, 1, tableLayoutPanel.RowCount - 1);
             tableLayoutPanel.Controls.Add(new_button_extra, 2, tableLayoutPanel.RowCount - 1);
-
-            tableLayoutPanel.Size = new Size(343, tableLayoutPanel.Size.Height + 46);
         }
 
         private void add_row_material(TableLayoutPanel tableLayoutPanel, Materials.Material material)
@@ -301,11 +306,7 @@ namespace OOP_Course_work
         {
             // Открываем форму внесения нового материала
             var form_new_material = new Form_new_material(this);
-            var result = form_new_material.ShowDialog();
-            if (result == DialogResult.OK) 
-            {
-
-            }
+            form_new_material.ShowDialog();
         }
 
         private void treeView_warehouse_materials_NodeMouseClick(object sender, TreeNodeMouseClickEventArgs e)

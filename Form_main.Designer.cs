@@ -28,18 +28,18 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.TreeNode treeNode31 = new System.Windows.Forms.TreeNode("СО2-лазер");
-            System.Windows.Forms.TreeNode treeNode32 = new System.Windows.Forms.TreeNode("Филаментный");
-            System.Windows.Forms.TreeNode treeNode33 = new System.Windows.Forms.TreeNode("Фотополимерный");
-            System.Windows.Forms.TreeNode treeNode34 = new System.Windows.Forms.TreeNode("3D-принтер", new System.Windows.Forms.TreeNode[] {
-            treeNode32,
-            treeNode33});
-            System.Windows.Forms.TreeNode treeNode35 = new System.Windows.Forms.TreeNode("Обрабатываемые", new System.Windows.Forms.TreeNode[] {
-            treeNode31,
-            treeNode34});
-            System.Windows.Forms.TreeNode treeNode36 = new System.Windows.Forms.TreeNode("Необрабатываемые");
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea6 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Series series6 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.TreeNode treeNode7 = new System.Windows.Forms.TreeNode("СО2-лазер");
+            System.Windows.Forms.TreeNode treeNode8 = new System.Windows.Forms.TreeNode("Филаментный");
+            System.Windows.Forms.TreeNode treeNode9 = new System.Windows.Forms.TreeNode("Фотополимерный");
+            System.Windows.Forms.TreeNode treeNode10 = new System.Windows.Forms.TreeNode("3D-принтер", new System.Windows.Forms.TreeNode[] {
+            treeNode8,
+            treeNode9});
+            System.Windows.Forms.TreeNode treeNode11 = new System.Windows.Forms.TreeNode("Обрабатываемые", new System.Windows.Forms.TreeNode[] {
+            treeNode7,
+            treeNode10});
+            System.Windows.Forms.TreeNode treeNode12 = new System.Windows.Forms.TreeNode("Необрабатываемые");
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea2 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Series series2 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage_Products = new System.Windows.Forms.TabPage();
             this.label7 = new System.Windows.Forms.Label();
@@ -48,8 +48,8 @@
             this.panel1 = new System.Windows.Forms.Panel();
             this.tableLayoutPanel_products = new System.Windows.Forms.TableLayoutPanel();
             this.button2 = new System.Windows.Forms.Button();
-            this.label1 = new System.Windows.Forms.Label();
             this.button_add = new System.Windows.Forms.Button();
+            this.label1 = new System.Windows.Forms.Label();
             this.tabPage_Materials = new System.Windows.Forms.TabPage();
             this.panel3 = new System.Windows.Forms.Panel();
             this.tableLayoutPanel_use_materials = new System.Windows.Forms.TableLayoutPanel();
@@ -74,8 +74,10 @@
             this.label8 = new System.Windows.Forms.Label();
             this.dateTimePicker2 = new System.Windows.Forms.DateTimePicker();
             this.dateTimePicker1 = new System.Windows.Forms.DateTimePicker();
+            this.richTextBox1 = new System.Windows.Forms.RichTextBox();
             this.tabControl1.SuspendLayout();
             this.tabPage_Products.SuspendLayout();
+            this.panel4.SuspendLayout();
             this.panel1.SuspendLayout();
             this.tableLayoutPanel_products.SuspendLayout();
             this.tabPage_Materials.SuspendLayout();
@@ -125,6 +127,7 @@
             // panel4
             // 
             this.panel4.BackColor = System.Drawing.Color.Tan;
+            this.panel4.Controls.Add(this.richTextBox1);
             this.panel4.Location = new System.Drawing.Point(505, 47);
             this.panel4.Name = "panel4";
             this.panel4.Size = new System.Drawing.Size(528, 467);
@@ -154,6 +157,7 @@
             // 
             // tableLayoutPanel_products
             // 
+            this.tableLayoutPanel_products.AutoSize = true;
             this.tableLayoutPanel_products.BackColor = System.Drawing.Color.White;
             this.tableLayoutPanel_products.CellBorderStyle = System.Windows.Forms.TableLayoutPanelCellBorderStyle.Outset;
             this.tableLayoutPanel_products.ColumnCount = 3;
@@ -167,7 +171,7 @@
             this.tableLayoutPanel_products.Name = "tableLayoutPanel_products";
             this.tableLayoutPanel_products.RowCount = 1;
             this.tableLayoutPanel_products.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutPanel_products.Size = new System.Drawing.Size(343, 50);
+            this.tableLayoutPanel_products.Size = new System.Drawing.Size(363, 50);
             this.tableLayoutPanel_products.TabIndex = 0;
             // 
             // button2
@@ -176,33 +180,21 @@
             this.button2.BackColor = System.Drawing.Color.LightGray;
             this.button2.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.button2.ForeColor = System.Drawing.Color.Black;
-            this.button2.Location = new System.Drawing.Point(301, 5);
+            this.button2.Location = new System.Drawing.Point(320, 5);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(37, 38);
             this.button2.TabIndex = 2;
             this.button2.Text = "...";
             this.button2.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             this.button2.UseVisualStyleBackColor = false;
-            // 
-            // label1
-            // 
-            this.label1.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label1.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.label1.Location = new System.Drawing.Point(50, 15);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(130, 20);
-            this.label1.TabIndex = 1;
-            this.label1.Text = "Фанера 4/4 4мм";
-            this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.button2.Visible = false;
             // 
             // button_add
             // 
             this.button_add.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.button_add.BackColor = System.Drawing.Color.Lime;
             this.button_add.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.button_add.Location = new System.Drawing.Point(5, 5);
+            this.button_add.Location = new System.Drawing.Point(6, 5);
             this.button_add.Name = "button_add";
             this.button_add.Size = new System.Drawing.Size(37, 38);
             this.button_add.TabIndex = 1;
@@ -210,6 +202,20 @@
             this.button_add.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             this.button_add.UseVisualStyleBackColor = false;
             this.button_add.Click += new System.EventHandler(this.button_add_Click);
+            // 
+            // label1
+            // 
+            this.label1.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label1.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.label1.Location = new System.Drawing.Point(53, 15);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(130, 20);
+            this.label1.TabIndex = 1;
+            this.label1.Text = "Фанера 4/4 4мм";
+            this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.label1.Visible = false;
             // 
             // tabPage_Materials
             // 
@@ -297,21 +303,21 @@
             this.treeView_warehouse_materials.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.treeView_warehouse_materials.Location = new System.Drawing.Point(3, 3);
             this.treeView_warehouse_materials.Name = "treeView_warehouse_materials";
-            treeNode31.Name = "laser";
-            treeNode31.Text = "СО2-лазер";
-            treeNode32.Name = "fdm";
-            treeNode32.Text = "Филаментный";
-            treeNode33.Name = "sla";
-            treeNode33.Text = "Фотополимерный";
-            treeNode34.Name = "printer";
-            treeNode34.Text = "3D-принтер";
-            treeNode35.Name = "processed";
-            treeNode35.Text = "Обрабатываемые";
-            treeNode36.Name = "no_processed";
-            treeNode36.Text = "Необрабатываемые";
+            treeNode7.Name = "laser";
+            treeNode7.Text = "СО2-лазер";
+            treeNode8.Name = "fdm";
+            treeNode8.Text = "Филаментный";
+            treeNode9.Name = "sla";
+            treeNode9.Text = "Фотополимерный";
+            treeNode10.Name = "printer";
+            treeNode10.Text = "3D-принтер";
+            treeNode11.Name = "processed";
+            treeNode11.Text = "Обрабатываемые";
+            treeNode12.Name = "no_processed";
+            treeNode12.Text = "Необрабатываемые";
             this.treeView_warehouse_materials.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
-            treeNode35,
-            treeNode36});
+            treeNode11,
+            treeNode12});
             this.treeView_warehouse_materials.Size = new System.Drawing.Size(364, 420);
             this.treeView_warehouse_materials.TabIndex = 0;
             this.treeView_warehouse_materials.NodeMouseClick += new System.Windows.Forms.TreeNodeMouseClickEventHandler(this.treeView_warehouse_materials_NodeMouseClick);
@@ -379,14 +385,14 @@
             // 
             // chart1
             // 
-            chartArea6.Name = "ChartArea1";
-            this.chart1.ChartAreas.Add(chartArea6);
+            chartArea2.Name = "ChartArea1";
+            this.chart1.ChartAreas.Add(chartArea2);
             this.chart1.Location = new System.Drawing.Point(13, 132);
             this.chart1.Name = "chart1";
-            series6.ChartArea = "ChartArea1";
-            series6.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
-            series6.Name = "Series1";
-            this.chart1.Series.Add(series6);
+            series2.ChartArea = "ChartArea1";
+            series2.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
+            series2.Name = "Series1";
+            this.chart1.Series.Add(series2);
             this.chart1.Size = new System.Drawing.Size(381, 385);
             this.chart1.TabIndex = 10;
             this.chart1.Text = "chart1";
@@ -483,6 +489,16 @@
             this.dateTimePicker1.Size = new System.Drawing.Size(200, 23);
             this.dateTimePicker1.TabIndex = 0;
             // 
+            // richTextBox1
+            // 
+            this.richTextBox1.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.richTextBox1.Location = new System.Drawing.Point(3, 4);
+            this.richTextBox1.Name = "richTextBox1";
+            this.richTextBox1.Size = new System.Drawing.Size(522, 460);
+            this.richTextBox1.TabIndex = 0;
+            this.richTextBox1.Text = "";
+            this.richTextBox1.Visible = false;
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -498,7 +514,9 @@
             this.tabControl1.ResumeLayout(false);
             this.tabPage_Products.ResumeLayout(false);
             this.tabPage_Products.PerformLayout();
+            this.panel4.ResumeLayout(false);
             this.panel1.ResumeLayout(false);
+            this.panel1.PerformLayout();
             this.tableLayoutPanel_products.ResumeLayout(false);
             this.tableLayoutPanel_products.PerformLayout();
             this.tabPage_Materials.ResumeLayout(false);
@@ -549,6 +567,7 @@
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.DataVisualization.Charting.Chart chart1;
         private System.Windows.Forms.Button button_new_material;
+        private System.Windows.Forms.RichTextBox richTextBox1;
     }
 }
 

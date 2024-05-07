@@ -14,14 +14,11 @@ namespace OOP_Course_work
         float price;
         List<Materials.Material> components = new List<Materials.Material>();
         
-        public Product(string name, string description, params Materials.Material[] materials) 
+        public Product(string name, string description, List<Materials.Material> materials) 
         {
             this.name = name;
             this.description = description;
-            foreach (var component in materials)
-            {
-                this.components.Add(component);
-            }
+            this.components = materials;
             this.price = price_generator(this.components);
         }
 

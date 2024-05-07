@@ -32,7 +32,7 @@ namespace OOP_Course_work
             fstream.Close();
         }
 
-        public List<Product> warehouseProducts(List<Product> products)
+        public List<Product> warehouse_products(List<Product> products)
         {
             // Доступ к листу, используя его имя листа
             Worksheet worksheet = workbook.Worksheets["WarehouseProducts"];
@@ -80,18 +80,15 @@ namespace OOP_Course_work
                         float price = (float)Convert.ToDouble(cell.Value.ToString());
 
                         cell = worksheet.Cells.CheckCell(i, 5);
-                        string color = cell.Value.ToString();
-
-                        cell = worksheet.Cells.CheckCell(i, 6);
                         float thickness = (float)Convert.ToDouble(cell.Value.ToString());
 
-                        cell = worksheet.Cells.CheckCell(i, 7);
+                        cell = worksheet.Cells.CheckCell(i, 6);
                         float square_max = (float)Convert.ToDouble(cell.Value.ToString());
 
-                        cell = worksheet.Cells.CheckCell(i, 8);
+                        cell = worksheet.Cells.CheckCell(i, 7);
                         float square_current = (float)Convert.ToDouble(cell.Value.ToString());
 
-                        Materials.Laser laser = new Materials.Laser(name_material, price, color, thickness, square_max, square_current);
+                        Materials.Laser laser = new Materials.Laser(name_material, price, thickness, square_max, square_current);
                         materials.Add(laser);
                     }
                     else if (cell.Value.ToString() == "PrinterFDM")
@@ -103,15 +100,15 @@ namespace OOP_Course_work
                         float price = (float)Convert.ToDouble(cell.Value.ToString());
 
                         cell = worksheet.Cells.CheckCell(i, 5);
-                        string color = cell.Value.ToString();
+                        bool heat_resistant = Convert.ToBoolean(cell.Value.ToString());
 
-                        cell = worksheet.Cells.CheckCell(i, 7);
+                        cell = worksheet.Cells.CheckCell(i, 6);
                         float square_max = (float)Convert.ToDouble(cell.Value.ToString());
 
-                        cell = worksheet.Cells.CheckCell(i, 8);
+                        cell = worksheet.Cells.CheckCell(i, 7);
                         float square_current = (float)Convert.ToDouble(cell.Value.ToString());
 
-                        Materials.PrinterFDM fdm = new Materials.PrinterFDM(name_material, price, color, square_max, square_current);
+                        Materials.PrinterFDM fdm = new Materials.PrinterFDM(name_material, price, heat_resistant, square_max, square_current);
                         materials.Add(fdm);
                     }
                     else if (cell.Value.ToString() == "PrinterSLA")
@@ -123,22 +120,22 @@ namespace OOP_Course_work
                         float price = (float)Convert.ToDouble(cell.Value.ToString());
 
                         cell = worksheet.Cells.CheckCell(i, 5);
-                        string color = cell.Value.ToString();
+                        bool water_washer = Convert.ToBoolean(cell.Value.ToString());
 
-                        cell = worksheet.Cells.CheckCell(i, 7);
+                        cell = worksheet.Cells.CheckCell(i, 6);
                         float square_max = (float)Convert.ToDouble(cell.Value.ToString());
 
-                        cell = worksheet.Cells.CheckCell(i, 8);
+                        cell = worksheet.Cells.CheckCell(i, 7);
                         float square_current = (float)Convert.ToDouble(cell.Value.ToString());
 
-                        Materials.PrinterSLA sla = new Materials.PrinterSLA(name_material, price, color, square_max, square_current);
+                        Materials.PrinterSLA sla = new Materials.PrinterSLA(name_material, price, water_washer, square_max, square_current);
                         materials.Add(sla);
                     }
 
                     // Если это последний материал
                     if (worksheet.Cells.CheckCell(i, 0).Value.ToString() == "**")
                     {
-                        Product product = new Product(name_product, description, materials.ToArray());
+                        Product product = new Product(name_product, description, materials);
                         products.Add(product);
                     }
                 }
@@ -146,7 +143,7 @@ namespace OOP_Course_work
             return products;
         }
 
-        public List<Materials.Material> warehouseMaterials(List<Materials.Material> materials)
+        public List<Materials.Material> warehouse_materials(List<Materials.Material> materials)
         {
             // Доступ к листу, используя его имя листа
             Worksheet worksheet = workbook.Worksheets["WarehouseMaterials"];
@@ -176,18 +173,15 @@ namespace OOP_Course_work
                     float price = (float)Convert.ToDouble(cell.Value.ToString());
 
                     cell = worksheet.Cells.CheckCell(i, 3);
-                    string color = cell.Value.ToString();
-
-                    cell = worksheet.Cells.CheckCell(i, 4);
                     float thickness = (float)Convert.ToDouble(cell.Value.ToString());
 
-                    cell = worksheet.Cells.CheckCell(i, 5);
+                    cell = worksheet.Cells.CheckCell(i, 4);
                     float square_max = (float)Convert.ToDouble(cell.Value.ToString());
 
-                    cell = worksheet.Cells.CheckCell(i, 5);
+                    cell = worksheet.Cells.CheckCell(i, 4);
                     float square_current = (float)Convert.ToDouble(cell.Value.ToString());
 
-                    Materials.Laser laser = new Materials.Laser(name_material, price, color, thickness, square_max, square_current);
+                    Materials.Laser laser = new Materials.Laser(name_material, price, thickness, square_max, square_current);
                     materials.Add(laser);
                 }
                 else if (cell.Value.ToString() == "PrinterFDM")
@@ -199,15 +193,15 @@ namespace OOP_Course_work
                     float price = (float)Convert.ToDouble(cell.Value.ToString());
 
                     cell = worksheet.Cells.CheckCell(i, 3);
-                    string color = cell.Value.ToString();
+                    bool heat_resistant = Convert.ToBoolean(cell.Value.ToString());
 
-                    cell = worksheet.Cells.CheckCell(i, 5);
+                    cell = worksheet.Cells.CheckCell(i, 4);
                     float square_max = (float)Convert.ToDouble(cell.Value.ToString());
 
-                    cell = worksheet.Cells.CheckCell(i, 5);
+                    cell = worksheet.Cells.CheckCell(i, 4);
                     float square_current = (float)Convert.ToDouble(cell.Value.ToString());
 
-                    Materials.PrinterFDM fdm = new Materials.PrinterFDM(name_material, price, color, square_max, square_current);
+                    Materials.PrinterFDM fdm = new Materials.PrinterFDM(name_material, price, heat_resistant, square_max, square_current);
                     materials.Add(fdm);
                 }
                 else if (cell.Value.ToString() == "PrinterSLA")
@@ -219,15 +213,15 @@ namespace OOP_Course_work
                     float price = (float)Convert.ToDouble(cell.Value.ToString());
 
                     cell = worksheet.Cells.CheckCell(i, 3);
-                    string color = cell.Value.ToString();
+                    bool water_washer = Convert.ToBoolean(cell.Value.ToString());
 
-                    cell = worksheet.Cells.CheckCell(i, 5);
+                    cell = worksheet.Cells.CheckCell(i, 4);
                     float square_max = (float)Convert.ToDouble(cell.Value.ToString());
 
-                    cell = worksheet.Cells.CheckCell(i, 5);
+                    cell = worksheet.Cells.CheckCell(i, 4);
                     float square_current = (float)Convert.ToDouble(cell.Value.ToString());
 
-                    Materials.PrinterSLA sla = new Materials.PrinterSLA(name_material, price, color, square_max, square_current);
+                    Materials.PrinterSLA sla = new Materials.PrinterSLA(name_material, price, water_washer, square_max, square_current);
                     materials.Add(sla);
                 }
             }
@@ -235,7 +229,7 @@ namespace OOP_Course_work
             return materials;
         }
 
-        public List<Materials.Material> useMaterials(List<Materials.Material> materials)
+        public List<Materials.Material> use_materials(List<Materials.Material> materials)
         {
             // Доступ к листу, используя его имя листа
             Worksheet worksheet = workbook.Worksheets["UseMaterials"];
@@ -265,18 +259,15 @@ namespace OOP_Course_work
                     float price = (float)Convert.ToDouble(cell.Value.ToString());
 
                     cell = worksheet.Cells.CheckCell(i, 3);
-                    string color = cell.Value.ToString();
-
-                    cell = worksheet.Cells.CheckCell(i, 4);
                     float thickness = (float)Convert.ToDouble(cell.Value.ToString());
 
-                    cell = worksheet.Cells.CheckCell(i, 5);
+                    cell = worksheet.Cells.CheckCell(i, 4);
                     float square_max = (float)Convert.ToDouble(cell.Value.ToString());
 
-                    cell = worksheet.Cells.CheckCell(i, 6);
+                    cell = worksheet.Cells.CheckCell(i, 5);
                     float square_current = (float)Convert.ToDouble(cell.Value.ToString());
 
-                    Materials.Laser laser = new Materials.Laser(name_material, price, color, thickness, square_max, square_current);
+                    Materials.Laser laser = new Materials.Laser(name_material, price, thickness, square_max, square_current);
                     materials.Add(laser);
                 }
                 else if (cell.Value.ToString() == "PrinterFDM")
@@ -288,15 +279,15 @@ namespace OOP_Course_work
                     float price = (float)Convert.ToDouble(cell.Value.ToString());
 
                     cell = worksheet.Cells.CheckCell(i, 3);
-                    string color = cell.Value.ToString();
+                    bool heat_resistant = Convert.ToBoolean(cell.Value.ToString());
 
-                    cell = worksheet.Cells.CheckCell(i, 5);
+                    cell = worksheet.Cells.CheckCell(i, 4);
                     float square_max = (float)Convert.ToDouble(cell.Value.ToString());
 
-                    cell = worksheet.Cells.CheckCell(i, 6);
+                    cell = worksheet.Cells.CheckCell(i, 5);
                     float square_current = (float)Convert.ToDouble(cell.Value.ToString());
 
-                    Materials.PrinterFDM fdm = new Materials.PrinterFDM(name_material, price, color, square_max, square_current);
+                    Materials.PrinterFDM fdm = new Materials.PrinterFDM(name_material, price, heat_resistant, square_max, square_current);
                     materials.Add(fdm);
                 }
                 else if (cell.Value.ToString() == "PrinterSLA")
@@ -308,15 +299,15 @@ namespace OOP_Course_work
                     float price = (float)Convert.ToDouble(cell.Value.ToString());
 
                     cell = worksheet.Cells.CheckCell(i, 3);
-                    string color = cell.Value.ToString();
+                    bool water_washer = Convert.ToBoolean(cell.Value.ToString());
 
-                    cell = worksheet.Cells.CheckCell(i, 5);
+                    cell = worksheet.Cells.CheckCell(i, 4);
                     float square_max = (float)Convert.ToDouble(cell.Value.ToString());
 
-                    cell = worksheet.Cells.CheckCell(i, 6);
+                    cell = worksheet.Cells.CheckCell(i, 5);
                     float square_current = (float)Convert.ToDouble(cell.Value.ToString());
 
-                    Materials.PrinterSLA sla = new Materials.PrinterSLA(name_material, price, color, square_max, square_current);
+                    Materials.PrinterSLA sla = new Materials.PrinterSLA(name_material, price, water_washer, square_max, square_current);
                     materials.Add(sla);
                 }
             }
