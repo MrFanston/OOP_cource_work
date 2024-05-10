@@ -13,7 +13,9 @@ namespace OOP_Course_work
         string description;
         float price;
         List<Materials.Material> components = new List<Materials.Material>();
-        
+        List<float> values_use = new List<float>();
+
+
         public Product(string name, string description, List<Materials.Material> materials) 
         {
             this.name = name;

@@ -43,6 +43,12 @@ namespace OOP_Course_work
             {
                 return value_current;
             }
+
+            public void set_value_current(float value_current)
+            {
+                this.value_current = value_current;
+            }
+
         }
 
         // Класс необрабатываемых материалов
@@ -74,15 +80,15 @@ namespace OOP_Course_work
 
         public class PrinterFDM: Material
         {
-            bool heat_resistant;
+            string heat_resistant;
 
-            public PrinterFDM(string name, float price, bool heat_resistant, float weight_max, float weight_current) :
+            public PrinterFDM(string name, float price, string heat_resistant, float weight_max, float weight_current) :
                 base(name, price, weight_max, weight_current)
             {
                 this.heat_resistant = heat_resistant;
             }
 
-            public bool get_heat_resistant()
+            public string get_heat_resistant()
             {
                 return heat_resistant;
             }
@@ -91,15 +97,15 @@ namespace OOP_Course_work
         // Класс материалов обрабатываемых FDM принтером
         public class PrinterSLA : Material
         {
-            bool water_washer;
+            string water_washer;
 
-            public PrinterSLA(string name, float price, bool water_washer, float volume_max, float volume_current) :
+            public PrinterSLA(string name, float price, string water_washer, float volume_max, float volume_current) :
                 base(name, price, volume_max, volume_current)
             {
                 this.water_washer = water_washer;
             }
 
-            public bool get_water_washer()
+            public string get_water_washer()
             {
                 return water_washer;
             }

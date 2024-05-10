@@ -6,6 +6,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Timers;
 using System.Windows.Forms;
 
 namespace OOP_Course_work
@@ -102,7 +103,7 @@ namespace OOP_Course_work
 
         private void button_add_product_Click(object sender, EventArgs e)
         {
-            string name = textBox_name.Text;
+            string name_product = textBox_name.Text;
             string descripions = richTextBox_description.Text;
             List<Materials.Material> product_materials = new List<Materials.Material>();
 
@@ -111,11 +112,44 @@ namespace OOP_Course_work
                 CheckBox checkBox = (CheckBox)tableLayoutPanel_use_materials.Controls[i * 4];
                 if (checkBox.Checked)
                 {
-                    product_materials.Add((Materials.Material)checkBox.Tag);
+                    // Используемый материал для создания товара
+                    Materials.Material material = (Materials.Material)checkBox.Tag;
+
+                    // Копия материала, но в свойстве текущего значения задано используемое количество для товара
+                    Materials.Material component;
+
+                    string name_material = material.get_name();
+                    float price = material.get_price();
+                    float value_max = material.get_value_max();
+                    float value_current = (float)((NumericUpDown)tableLayoutPanel_use_materials.Controls[3 + i * 4]).Value;
+                    material.set_value_current(material.get_value_current() - value_current);
+
+                    if (material.GetType() == typeof(Materials.Unprocessed))
+                    {
+                        component = new Materials.Unprocessed(name_material, price);
+                    }
+                    else if (material.GetType() == typeof(Materials.Laser))
+                    {
+                        float thickness = ((Materials.Laser)material).get_thickness();
+                        component = new Materials.Laser(name_material, price, thickness, value_max, value_current);
+                    }
+                    else if (material.GetType() == typeof(Materials.PrinterFDM))
+                    {
+                        string heat_resistant = ((Materials.PrinterFDM)material).get_heat_resistant();
+                        component = new Materials.PrinterFDM(name_material, price, heat_resistant, value_max, value_current);
+                    }
+                    // (material.GetType() == typeof(Materials.PrinterSLA))
+                    else
+                    {
+                        string water_washer = ((Materials.PrinterSLA)material).get_water_washer();
+                        component = new Materials.PrinterSLA(name_material, price, water_washer, value_max, value_current);
+                    }
+
+                    product_materials.Add(component);
                 }
             }
             
-            Product product = new Product(name, descripions, product_materials);
+            Product product = new Product(name_product, descripions, product_materials);
 
             List<Product> products = main_form.get_products();
             products.Add(product);

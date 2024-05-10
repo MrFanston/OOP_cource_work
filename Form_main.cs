@@ -1,15 +1,19 @@
 ﻿using Aspose.Cells;
+using Aspose.Cells.Drawing;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Windows.Forms.DataVisualization.Charting;
 using System.Xml.Linq;
+using static OOP_Course_work.Materials;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.ProgressBar;
 
@@ -20,6 +24,16 @@ namespace OOP_Course_work
         public MainForm()
         {
             InitializeComponent();
+            this.FormClosing += MainForm_FormClosing;
+        }
+
+        private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            // Проверка условий закрытия формы
+            if (MessageBox.Show("Вы уверены, что хотите закрыть приложение?", "Подтверждение закрытия", MessageBoxButtons.YesNo) != DialogResult.Yes)
+            {
+                e.Cancel = true; // Отменить закрытие формы
+            }
         }
 
         // Список всех товаров на складе
@@ -41,7 +55,13 @@ namespace OOP_Course_work
 
         public void set_materials(List<Materials.Material> materials)
         {
-            this.materials = materials;
+            foreach (Materials.Material material in materials)
+            {
+                this.materials.Add(material);
+                Accounting.Operation operation = new Accounting.Operation(DateTime.Now, -materials.Last().get_price(), materials.Last().get_name());
+                operations.Add(operation);
+                add_row_operation(operation);
+            }
         }
 
         public List<Product> get_products()
@@ -77,9 +97,9 @@ namespace OOP_Course_work
         private void Form1_Load(object sender, EventArgs e)
         {
             // Считываем данные с таблицы
-            string dataDir = "C:\\Users\\Владимир\\Documents\\КГУ\\4 семестр\\ООП\\OOP_Course_work\\book.xlsx";
+            string dataDir = Application.StartupPath + "\\book.xlsx";
 
-            Aspose aspose = new Aspose(dataDir);
+            Aspose aspose = new Aspose(dataDir, this);
 
             products = aspose.warehouse_products(products);
 
@@ -98,25 +118,61 @@ namespace OOP_Course_work
 
                 add_treeNode(node, obj);
             }
+
+            foreach (Materials.Material obj in use_materials)
+            {
+                add_row_material(tableLayoutPanel_use_materials, obj);
+            }
+
+            foreach (Product obj in products)
+            {
+                add_row(tableLayoutPanel_products, obj);
+            }
+
+            foreach(Accounting.Operation operation in operations)
+            {
+                add_row_operation(operation);
+            }
+            // Установка свойство ListView на горизонтальный скроллинг
+            listView_admission.AutoResizeColumns(ColumnHeaderAutoResizeStyle.None);
+            listView_write_off.AutoResizeColumns(ColumnHeaderAutoResizeStyle.None);
         }
 
         public void add_treeNode(TreeNode node, Materials.Material obj)
         {
+            TreeNode node_void = new TreeNode("");
+
             if (obj.GetType() == typeof(Materials.Laser))
             {
+                int count = treeView_warehouse_materials.Nodes[0].Nodes[0].Nodes.Count;
+                treeView_warehouse_materials.Nodes[0].Nodes[0].Nodes[count - 1].Remove();
+                
                 treeView_warehouse_materials.Nodes[0].Nodes[0].Nodes.Add(node);
+                treeView_warehouse_materials.Nodes[0].Nodes[0].Nodes.Add(node_void);
             }
             else if (obj.GetType() == typeof(Materials.PrinterFDM))
             {
+                int count = treeView_warehouse_materials.Nodes[0].Nodes[1].Nodes[0].Nodes.Count;
+                treeView_warehouse_materials.Nodes[0].Nodes[1].Nodes[0].Nodes[count - 1].Remove();
+
                 treeView_warehouse_materials.Nodes[0].Nodes[1].Nodes[0].Nodes.Add(node);
+                treeView_warehouse_materials.Nodes[0].Nodes[1].Nodes[0].Nodes.Add(node_void);
             }
             else if (obj.GetType() == typeof(Materials.PrinterSLA))
             {
+                int count = treeView_warehouse_materials.Nodes[0].Nodes[1].Nodes[1].Nodes.Count;
+                treeView_warehouse_materials.Nodes[0].Nodes[1].Nodes[1].Nodes[count - 1].Remove();
+
                 treeView_warehouse_materials.Nodes[0].Nodes[1].Nodes[1].Nodes.Add(node);
+                treeView_warehouse_materials.Nodes[0].Nodes[1].Nodes[1].Nodes.Add(node_void);
             }
             else if (obj.GetType() == typeof(Materials.Unprocessed))
             {
+                int count = treeView_warehouse_materials.Nodes[1].Nodes.Count;
+                treeView_warehouse_materials.Nodes[1].Nodes[count - 1].Remove();
+
                 treeView_warehouse_materials.Nodes[1].Nodes.Add(node);
+                treeView_warehouse_materials.Nodes[1].Nodes.Add(node_void);
             }
         }
 
@@ -154,12 +210,17 @@ namespace OOP_Course_work
                     }
                 }
             }
+            else if(tableLayoutPanel.Name == "tableLayoutPanel_products")
+            {
+                TableLayoutPanelCellPosition position = tableLayoutPanel.GetPositionFromControl(button);
+                // Удаляем строку
+                remove_row_product(tableLayoutPanel, position.Row);
+            }
             else
             {
                 TableLayoutPanelCellPosition position = tableLayoutPanel.GetPositionFromControl(button);
                 // Удаляем строку
-                RemoveRowFromTableLayoutPanel(tableLayoutPanel, position.Row);
-
+                remove_row_material(tableLayoutPanel, position.Row);
             }
         }
 
@@ -173,6 +234,46 @@ namespace OOP_Course_work
 
             // Создание кнопки дополнительной информации
             var new_button_extra = new System.Windows.Forms.Button();
+
+            // Дополнительная информация о товаре
+            string extra = "";
+            extra += "Название:\n" + product.get_name() + "\n\n";
+            extra += "Описание:\n" + product.get_description() + "\n\n";
+            extra += "Используемые материалы:\n";
+            foreach(Materials.Material material in product.get_components().ToArray())
+            {
+                // Мера измерения
+                string measure = "";
+
+                // Особенность материала
+                string feature = "";
+
+                if (material.GetType() == typeof(Materials.PrinterSLA))
+                {
+                    measure = "мл";
+
+                    Materials.PrinterSLA sla = (Materials.PrinterSLA)material;
+                    feature = sla.get_water_washer();
+                }
+                else if (material.GetType() == typeof(Materials.Laser))
+                {
+                    measure = "мм^2";
+
+                    Materials.Laser laser = (Materials.Laser)material;
+                    feature = "Толщина - " + laser.get_thickness().ToString();
+                }
+                else if (material.GetType() == typeof(Materials.PrinterFDM))
+                {
+                    measure = "г";
+
+                    Materials.PrinterFDM fdm = (Materials.PrinterFDM)material;
+                    feature = fdm.get_heat_resistant();
+                }
+
+                extra += "\t" + material.get_name() + " " + material.get_value_current() + " " + measure + " " + feature +"\n"; 
+            }
+            extra += "\n";
+            extra += "Цена:\n" + product.get_price() + "р";
 
             // Добавляем обработчик события Click для каждой созданной кнопки
             new_button_del.Click += button_add_Click;
@@ -213,6 +314,8 @@ namespace OOP_Course_work
             new_button_extra.Text = "...";
             new_button_extra.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             new_button_extra.UseVisualStyleBackColor = false;
+            new_button_extra.Tag = extra;
+            new_button_extra.Click += button_description_Click;
 
             // Добавляем элементы в строку
             tableLayoutPanel.RowCount = ++tableLayoutPanel.RowCount;
@@ -265,7 +368,7 @@ namespace OOP_Course_work
             tableLayoutPanel.Size = new Size(343, tableLayoutPanel.Size.Height + 46);
         }
 
-        private void RemoveRowFromTableLayoutPanel(TableLayoutPanel tableLayoutPanel, int rowIndex)
+        private void remove_row_material(TableLayoutPanel tableLayoutPanel, int rowIndex)
         { 
             var control = tableLayoutPanel.GetControlFromPosition(1, rowIndex);
             Materials.Material material = (Materials.Material)control.Tag;
@@ -301,18 +404,65 @@ namespace OOP_Course_work
             tableLayoutPanel.Size = new Size(343, tableLayoutPanel.Size.Height - 46);
         }
 
+        public void remove_row_product(TableLayoutPanel tableLayoutPanel, int rowIndex)
+        {
+            var control = tableLayoutPanel.GetControlFromPosition(1, rowIndex);
+            Product product = (Product)control.Tag;
+
+            // Добавляем новую операция списания
+            float value = product.get_price();
+            string description = product.get_description();
+
+            Accounting.Operation operation = new Accounting.Operation(DateTime.Now, value, description);
+            operations.Add(operation);
+            add_row_operation(operation);
+
+            // Удаляем объект из списка
+            products.Remove(product);
+
+            // Удаляем текстовое поле из удаляемой строки
+            tableLayoutPanel.Controls.Remove(control);
+
+            // Перемещение элементов из строк ниже удаляемой строки на одну строку вверх
+            for (int i = rowIndex + 1; i < tableLayoutPanel.RowCount; i++)
+            {
+                control = tableLayoutPanel.GetControlFromPosition(1, i);
+                tableLayoutPanel.SetRow(control, i - 1);
+            }
+
+            // Удаляем элементы последней строки
+            for (int colIndex = 0; colIndex < tableLayoutPanel.ColumnCount; colIndex++)
+            {
+                control = tableLayoutPanel.GetControlFromPosition(colIndex, tableLayoutPanel.RowCount - 1);
+                if (control != null)
+                {
+                    tableLayoutPanel.Controls.Remove(control);
+                    control.Dispose();
+                }
+            }
+
+            // Уменьшаем количество строк, после того, как все элементы были перемещены
+            tableLayoutPanel.RowCount--;
+
+            // Уменьшаем размер контейнера
+            tableLayoutPanel.Size = new Size(343, tableLayoutPanel.Size.Height - 46);
+        }
+
         // Добавление нового материала в таблицу
         private void button_new_material_Click(object sender, EventArgs e)
         {
             // Открываем форму внесения нового материала
             var form_new_material = new Form_new_material(this);
-            form_new_material.ShowDialog();
+            var result = form_new_material.ShowDialog();
+            if(result == DialogResult.OK)
+            {
+            }
         }
 
         private void treeView_warehouse_materials_NodeMouseClick(object sender, TreeNodeMouseClickEventArgs e)
         {
             // Проверяем, что выбранный узел является листом
-            if (e.Node.Nodes.Count == 0)
+            if (e.Node.Nodes.Count == 0 && e.Node.Text!="")
             {
                 button_add_use_maaterials.Enabled = true;
                 button_add_use_maaterials.BackColor = Color.Lime;
@@ -322,6 +472,92 @@ namespace OOP_Course_work
                 button_add_use_maaterials.Enabled = false;
                 button_add_use_maaterials.BackColor = Color.Gray;
             }
+        }
+
+        private void button_description_Click(object sender, EventArgs e)
+        {
+            // Получаем кнопку, которая вызвала событие
+            var button = sender as System.Windows.Forms.Button;
+
+            richTextBox_description.Text = (string)button.Tag;
+            richTextBox_description.Visible = true;
+        }
+
+        private void add_row_operation(Accounting.Operation operation)
+        {
+
+            if (operation.get_value() >= 0)
+            {
+                // Создаем новую строку
+                string[] row = { (listView_admission.Items.Count + 1).ToString(), operation.get_value().ToString(),
+                        operation.get_description() + " " + operation.get_data().ToString() };
+
+                // Добавляем новую строку в ListView
+                listView_admission.Items.Add(new ListViewItem(row));
+            }
+            else
+            {
+                // Создаем новую строку
+                string[] row = { (listView_write_off.Items.Count + 1).ToString(), operation.get_value().ToString(),
+                        operation.get_description() + " " + operation.get_data().ToString() };
+
+                // Добавляем новую строку в ListView
+                listView_write_off.Items.Add(new ListViewItem(row));
+            }
+        }
+
+        private void button_sort_Click(object sender, EventArgs e)
+        {
+            listView_admission.Items.Clear();
+            listView_write_off.Items.Clear();
+            chart_extrapolation.Series.Clear();
+
+            List<Accounting.Operation> operations_filtr = new List<Accounting.Operation>();
+
+            // Получаем значения для фильтрации
+            DateTime left = dateTimePicker_left.Value;
+            DateTime right = dateTimePicker_right.Value;
+
+            foreach (var operation in operations) 
+            { 
+                if(operation.get_data() > left)
+                {
+                    if(operation.get_data() < right)
+                    {
+                        add_row_operation(operation);
+                        operations_filtr.Add(operation);
+                    }
+                }
+            }
+
+            Accounting.Calculation calculation = new Accounting.Calculation(operations_filtr);
+            List<float> increments = new List<float>();
+            float mean;
+
+            increments = calculation.get_y();
+            mean = calculation.extrapolation();
+
+            // Рисуем график
+            // Вносим приращения исходных значений
+            chart_extrapolation.Series.Add("increment");
+            chart_extrapolation.Series["increment"].ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
+            chart_extrapolation.Series["increment"].Color = Color.Blue;
+
+            int x = 0;
+            //chart_extrapolation.Series["increment"].Points.AddXY(x++, 0);
+            for (int i = 0; i < increments.Count; i++)
+            {
+                chart_extrapolation.Series["increment"].Points.AddXY(x++, increments[i]);
+            }
+
+            // Вносим значение апроксимации
+            chart_extrapolation.Series.Add("extrapolation");
+            chart_extrapolation.Series["extrapolation"].ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
+            chart_extrapolation.Series["extrapolation"].Color = Color.Red;
+
+            chart_extrapolation.Series["extrapolation"].Points.AddXY(--x, increments.Last());
+            chart_extrapolation.Series["extrapolation"].Points.AddXY(++x, increments.Last() + mean);
+
         }
     }
 }

@@ -153,6 +153,8 @@
             this.Controls.Add(this.groupBox_description);
             this.Controls.Add(this.groupBox_name);
             this.Controls.Add(this.panel3);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
+            this.MaximizeBox = false;
             this.Name = "Form_new_product";
             this.Text = "Новый товар";
             this.Load += new System.EventHandler(this.Form_new_product_Load);

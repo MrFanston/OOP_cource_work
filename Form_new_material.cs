@@ -36,7 +36,6 @@ namespace OOP_Course_work
             checkBox_feature.Visible = false;
             groupBox_name.Enabled = true;
             groupBox_price.Enabled = true;
-            groupBox_count.Enabled = true;
         }
 
         private void radioButton1_CheckedChanged(object sender, EventArgs e)
@@ -89,16 +88,16 @@ namespace OOP_Course_work
             groupBox_price.Enabled = true;
             groupBox_measure.Enabled = true;
             groupBox_count.Enabled = true;
+            numericUpDown_count.Enabled = true;
         }
 
         private void button_add_Click(object sender, EventArgs e)
         {
             if(radioButton_processable.Checked)
             {
+                List<Materials.Material> materials = new List<Materials.Material>();
                 if(comboBox_type.Text == "Лазер")
                 {
-                    List<Materials.Material> materials = mainForm.get_materials();
-
                     string name = textBox_name.Text;
                     float price = (float)numericUpDown_price.Value;
                     float measure = (float)numericUpDown_measure.Value;
@@ -123,11 +122,17 @@ namespace OOP_Course_work
                 }
                 else if(comboBox_type.Text == "Принтер FDM")
                 {
-                    List<Materials.Material> materials = mainForm.get_materials();
-
                     string name = textBox_name.Text;
                     float price = (float)numericUpDown_price.Value;
-                    bool feature = checkBox_feature.Checked;
+                    string feature;
+                    if (checkBox_feature.Checked)
+                    {
+                        feature = "Термостойкий";
+                    }
+                    else
+                    {
+                        feature = "";
+                    }
                     float measure = (float)numericUpDown_measure.Value;
 
                     int count = (int)numericUpDown_count.Value;
@@ -149,12 +154,18 @@ namespace OOP_Course_work
                 }
                 else if (comboBox_type.Text == "Принтер SLA")
                 {
-                    List<Materials.Material> materials = mainForm.get_materials();
-
                     string name = textBox_name.Text;
                     float price = (float)numericUpDown_price.Value;
-                    bool feature = checkBox_feature.Checked;
-                    float measure = (float)numericUpDown_measure.Value;
+                    string feature;
+                    if (checkBox_feature.Checked)
+                    {
+                        feature = "Водомойка";
+                    }
+                    else
+                    {
+                        feature = "";
+                    }
+                        float measure = (float)numericUpDown_measure.Value;
 
                     int count = (int)numericUpDown_count.Value;
 
@@ -177,7 +188,8 @@ namespace OOP_Course_work
             }
             else
             {
-                List<Materials.Material> materials = mainForm.get_materials();
+                // Unprocessed
+                List<Materials.Material> materials = new List<Materials.Material>();
 
                 string name = textBox_name.Text;
                 float price = (float)numericUpDown_price.Value;

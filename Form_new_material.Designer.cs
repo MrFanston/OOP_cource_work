@@ -38,21 +38,21 @@
             this.groupBox_price = new System.Windows.Forms.GroupBox();
             this.numericUpDown_price = new System.Windows.Forms.NumericUpDown();
             this.groupBox_feature = new System.Windows.Forms.GroupBox();
+            this.numericUpDown_feature = new System.Windows.Forms.NumericUpDown();
             this.groupBox_measure = new System.Windows.Forms.GroupBox();
             this.numericUpDown_measure = new System.Windows.Forms.NumericUpDown();
+            this.checkBox_feature = new System.Windows.Forms.CheckBox();
             this.groupBox_count = new System.Windows.Forms.GroupBox();
             this.numericUpDown_count = new System.Windows.Forms.NumericUpDown();
-            this.numericUpDown_feature = new System.Windows.Forms.NumericUpDown();
-            this.checkBox_feature = new System.Windows.Forms.CheckBox();
             this.groupBox_name.SuspendLayout();
             this.groupBox_price.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_price)).BeginInit();
             this.groupBox_feature.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_feature)).BeginInit();
             this.groupBox_measure.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_measure)).BeginInit();
             this.groupBox_count.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_count)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_feature)).BeginInit();
             this.SuspendLayout();
             // 
             // radioButton_processable
@@ -83,6 +83,7 @@
             // 
             // comboBox_type
             // 
+            this.comboBox_type.Enabled = false;
             this.comboBox_type.FormattingEnabled = true;
             this.comboBox_type.Items.AddRange(new object[] {
             "Лазер",
@@ -187,6 +188,25 @@
             this.groupBox_feature.TabStop = false;
             this.groupBox_feature.Text = "Ширина";
             // 
+            // numericUpDown_feature
+            // 
+            this.numericUpDown_feature.DecimalPlaces = 2;
+            this.numericUpDown_feature.Increment = new decimal(new int[] {
+            1,
+            0,
+            0,
+            131072});
+            this.numericUpDown_feature.Location = new System.Drawing.Point(7, 22);
+            this.numericUpDown_feature.Maximum = new decimal(new int[] {
+            1000000,
+            0,
+            0,
+            0});
+            this.numericUpDown_feature.Name = "numericUpDown_feature";
+            this.numericUpDown_feature.Size = new System.Drawing.Size(159, 23);
+            this.numericUpDown_feature.TabIndex = 2;
+            this.numericUpDown_feature.ThousandsSeparator = true;
+            // 
             // groupBox_measure
             // 
             this.groupBox_measure.BackColor = System.Drawing.SystemColors.Info;
@@ -219,6 +239,18 @@
             this.numericUpDown_measure.Size = new System.Drawing.Size(159, 23);
             this.numericUpDown_measure.TabIndex = 1;
             this.numericUpDown_measure.ThousandsSeparator = true;
+            // 
+            // checkBox_feature
+            // 
+            this.checkBox_feature.AutoSize = true;
+            this.checkBox_feature.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.checkBox_feature.Location = new System.Drawing.Point(201, 244);
+            this.checkBox_feature.Name = "checkBox_feature";
+            this.checkBox_feature.Size = new System.Drawing.Size(100, 21);
+            this.checkBox_feature.TabIndex = 16;
+            this.checkBox_feature.Text = "Водомойка";
+            this.checkBox_feature.UseVisualStyleBackColor = true;
+            this.checkBox_feature.Visible = false;
             // 
             // groupBox_count
             // 
@@ -256,37 +288,6 @@
             0,
             0});
             // 
-            // numericUpDown_feature
-            // 
-            this.numericUpDown_feature.DecimalPlaces = 2;
-            this.numericUpDown_feature.Increment = new decimal(new int[] {
-            1,
-            0,
-            0,
-            131072});
-            this.numericUpDown_feature.Location = new System.Drawing.Point(7, 22);
-            this.numericUpDown_feature.Maximum = new decimal(new int[] {
-            1000000,
-            0,
-            0,
-            0});
-            this.numericUpDown_feature.Name = "numericUpDown_feature";
-            this.numericUpDown_feature.Size = new System.Drawing.Size(159, 23);
-            this.numericUpDown_feature.TabIndex = 2;
-            this.numericUpDown_feature.ThousandsSeparator = true;
-            // 
-            // checkBox_feature
-            // 
-            this.checkBox_feature.AutoSize = true;
-            this.checkBox_feature.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.checkBox_feature.Location = new System.Drawing.Point(201, 244);
-            this.checkBox_feature.Name = "checkBox_feature";
-            this.checkBox_feature.Size = new System.Drawing.Size(100, 21);
-            this.checkBox_feature.TabIndex = 16;
-            this.checkBox_feature.Text = "Водомойка";
-            this.checkBox_feature.UseVisualStyleBackColor = true;
-            this.checkBox_feature.Visible = false;
-            // 
             // Form_new_material
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -304,6 +305,8 @@
             this.Controls.Add(this.comboBox_type);
             this.Controls.Add(this.radioButton_no_processable);
             this.Controls.Add(this.radioButton_processable);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
+            this.MaximizeBox = false;
             this.Name = "Form_new_material";
             this.Text = "Настройка нового материала";
             this.Load += new System.EventHandler(this.Form_new_material_Load);
@@ -312,11 +315,11 @@
             this.groupBox_price.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_price)).EndInit();
             this.groupBox_feature.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_feature)).EndInit();
             this.groupBox_measure.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_measure)).EndInit();
             this.groupBox_count.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_count)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_feature)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -333,12 +336,12 @@
         private System.Windows.Forms.GroupBox groupBox_name;
         private System.Windows.Forms.GroupBox groupBox_price;
         private System.Windows.Forms.GroupBox groupBox_feature;
-        private System.Windows.Forms.GroupBox groupBox_count;
-        private System.Windows.Forms.NumericUpDown numericUpDown_count;
         private System.Windows.Forms.GroupBox groupBox_measure;
         private System.Windows.Forms.NumericUpDown numericUpDown_price;
         private System.Windows.Forms.NumericUpDown numericUpDown_measure;
         private System.Windows.Forms.NumericUpDown numericUpDown_feature;
         private System.Windows.Forms.CheckBox checkBox_feature;
+        private System.Windows.Forms.GroupBox groupBox_count;
+        private System.Windows.Forms.NumericUpDown numericUpDown_count;
     }
 }
