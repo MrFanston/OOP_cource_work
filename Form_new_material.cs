@@ -1,25 +1,17 @@
-﻿using Aspose.Cells;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using static OOP_Course_work.Materials;
 
 namespace OOP_Course_work
 {
     public partial class Form_new_material : Form
     {
-        MainForm mainForm;
+        MainViewModel mainViewModel;
 
-        public Form_new_material(MainForm Form_main)
+        public Form_new_material(MainViewModel mainViewModel)
         {
             InitializeComponent();
-            mainForm = Form_main;
+            this.mainViewModel = mainViewModel;
         }
 
         private void Form_new_material_Load(object sender, EventArgs e)
@@ -27,7 +19,7 @@ namespace OOP_Course_work
             comboBox_type.DropDownStyle = ComboBoxStyle.DropDownList;
         }
 
-        private void radioButton2_CheckedChanged(object sender, EventArgs e)
+        private void radioButton_no_processable_CheckedChanged(object sender, EventArgs e)
         {
             comboBox_type.Enabled = false;
             groupBox_feature.Visible = false;
@@ -38,7 +30,7 @@ namespace OOP_Course_work
             groupBox_price.Enabled = true;
         }
 
-        private void radioButton1_CheckedChanged(object sender, EventArgs e)
+        private void radioButton_processable_CheckedChanged(object sender, EventArgs e)
         {
             comboBox_type.Enabled = true;
             groupBox_measure.Visible = true;
@@ -46,7 +38,7 @@ namespace OOP_Course_work
             groupBox_feature.Visible = true;
         }
 
-        private void textBox1_TextChanged(object sender, EventArgs e)
+        private void textBox_name_TextChanged(object sender, EventArgs e)
         {
             if (textBox_name.Text.Length > 0)
             {
@@ -58,7 +50,7 @@ namespace OOP_Course_work
             }
         }
 
-        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
+        private void comboBox_type_SelectedIndexChanged(object sender, EventArgs e)
         {
             string selecteVal = comboBox_type.SelectedItem.ToString();
             if (selecteVal == "Лазер")
@@ -95,7 +87,7 @@ namespace OOP_Course_work
         {
             if(radioButton_processable.Checked)
             {
-                List<Materials.Material> materials = new List<Materials.Material>();
+                List<Material> materials = new List<Material>();
                 if(comboBox_type.Text == "Лазер")
                 {
                     string name = textBox_name.Text;
@@ -107,18 +99,11 @@ namespace OOP_Course_work
 
                     for(int i = 0; i < count; i++)
                     {
-                        Materials.Laser laser = new Materials.Laser(name, price, thickness, measure, measure);
+                        Laser laser = new Laser(name, price, thickness, measure, measure);
                         materials.Add(laser);
-
-                        TreeNode node = new TreeNode(name);
-
-                        // Связывание объекта с узлом через свойство Tag
-                        node.Tag = laser;
-
-                        mainForm.add_treeNode(node, laser);
                     }
-                    
-                    mainForm.set_materials(materials);
+
+                    mainViewModel.add_materials(materials);
                 }
                 else if(comboBox_type.Text == "Принтер FDM")
                 {
@@ -139,18 +124,11 @@ namespace OOP_Course_work
 
                     for (int i = 0; i < count; i++)
                     {
-                        Materials.PrinterFDM fdm = new Materials.PrinterFDM(name, price, feature, measure, measure);
+                        PrinterFDM fdm = new PrinterFDM(name, price, feature, measure, measure);
                         materials.Add(fdm);
-
-                        TreeNode node = new TreeNode(name);
-
-                        // Связывание объекта с узлом через свойство Tag
-                        node.Tag = fdm;
-
-                        mainForm.add_treeNode(node, fdm);
                     }
-                    
-                    mainForm.set_materials(materials);
+
+                    mainViewModel.add_materials(materials);
                 }
                 else if (comboBox_type.Text == "Принтер SLA")
                 {
@@ -171,25 +149,18 @@ namespace OOP_Course_work
 
                     for (int i = 0; i < count; i++)
                     {
-                        Materials.PrinterSLA sla = new Materials.PrinterSLA(name, price, feature, measure, measure);
+                        PrinterSLA sla = new PrinterSLA(name, price, feature, measure, measure);
                         materials.Add(sla);
-
-                        TreeNode node = new TreeNode(name);
-
-                        // Связывание объекта с узлом через свойство Tag
-                        node.Tag = sla;
-
-                        mainForm.add_treeNode(node, sla);
                     }
 
-                    mainForm.set_materials(materials);
+                    mainViewModel.add_materials(materials);
                 }
 
             }
             else
             {
                 // Unprocessed
-                List<Materials.Material> materials = new List<Materials.Material>();
+                List<Material> materials = new List<Material>();
 
                 string name = textBox_name.Text;
                 float price = (float)numericUpDown_price.Value;
@@ -198,18 +169,11 @@ namespace OOP_Course_work
 
                 for (int i = 0; i < count; i++)
                 {
-                    Materials.Unprocessed unprocessed = new Materials.Unprocessed(name, price);
+                    Unprocessed unprocessed = new Unprocessed(name, price);
                     materials.Add(unprocessed);
-
-                    TreeNode node = new TreeNode(name);
-
-                    // Связывание объекта с узлом через свойство Tag
-                    node.Tag = unprocessed;
-
-                    mainForm.add_treeNode(node, unprocessed);
                 }
 
-                mainForm.set_materials(materials);
+                mainViewModel.add_materials(materials);
             }
             this.DialogResult = DialogResult.OK;
             this.Close();

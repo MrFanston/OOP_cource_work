@@ -557,7 +557,7 @@ namespace OOP_Course_work
             this.MaximizeBox = false;
             this.Name = "MainForm";
             this.Text = "Главное окно";
-            this.Load += new System.EventHandler(this.Form1_Load);
+            this.Load += new System.EventHandler(this.MainForm_Load);
             this.tabControl1.ResumeLayout(false);
             this.tabPage_Products.ResumeLayout(false);
             this.tabPage_Products.PerformLayout();

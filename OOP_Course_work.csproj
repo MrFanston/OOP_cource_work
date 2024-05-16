@@ -68,7 +68,9 @@
     <Compile Include="Form_new_product.Designer.cs">
       <DependentUpon>Form_new_product.cs</DependentUpon>
     </Compile>
+    <Compile Include="MainViewModel.cs" />
     <Compile Include="Materials.cs" />
+    <Compile Include="Operation.cs" />
     <Compile Include="Product.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -8,85 +8,53 @@ namespace OOP_Course_work
 {
     public class Accounting
     {
-        public class Operation
+        List<Operation> operations;
+        List<float> y_values = new List<float>();
+
+        public Accounting(List<Operation> operations)
         {
-            DateTime data;
-            float value;
-            string description;
-
-            public Operation(DateTime data, float value, string description)
-            {
-                this.data = data;
-                this.value = value;
-                this.description = description;
-            }
-
-            public DateTime get_data()
-            {
-                return data;
-            }
-
-            public float get_value()
-            {
-                return value;
-            }
-
-            public string get_description() 
-            {
-                return description;
-            }
+            this.operations = operations;
         }
-        
-        public class Calculation
+
+        public List<float> get_y()
         {
-            List<Operation> operations;
-            List<float> y_values = new List<float>();
-
-            public Calculation(List<Operation> operations)
+            if (operations.Count > 0)
             {
-                this.operations = operations;
+                float start = 0;
+                y_values.Add(start);
+
+                int i = 0;
+                foreach (Operation operation in operations)
+                {
+                    y_values.Add(y_values[i++] + operation.get_value());
+                }
             }
 
-            public List<float> get_y()
+            return y_values;
+        }
+
+        public float extrapolation()
+        {
+            List<float> increments = new List<float>();
+            foreach (Operation value in operations)
             {
-                if(operations.Count > 0)
-                {
-                    float start = 0;
-                    y_values.Add(start);
-                    
-                    int i = 0;
-                    foreach(Operation operation in operations)
-                    {
-                        y_values.Add(y_values[i++] + operation.get_value());
-                    }
-                }
-                
-                return y_values;
+                increments.Add(value.get_value());
+            }
+            float mean = 0;
+
+            if (increments.Count > 5)
+            {
+                // Убираем выбросы в виде максимального и минимального приращений
+                increments.RemoveAt(increments.IndexOf(increments.Max()));
+                increments.RemoveAt(increments.IndexOf(increments.Min()));
             }
 
-            public float extrapolation()
+            foreach (float value in increments)
             {
-                List<float> increments = new List<float>();
-                foreach (Operation value in operations)
-                {
-                    increments.Add(value.get_value());
-                }
-                float mean = 0;
-
-                if(increments.Count > 5)
-                {
-                    // Убираем выбросы в виде максимального и минимального приращений
-                    increments.RemoveAt(increments.IndexOf(increments.Max()));
-                    increments.RemoveAt(increments.IndexOf(increments.Min()));
-                }
-
-                foreach(float value in increments)
-                {
-                    mean += value;
-                }
-
-                return mean / (increments.Count + 2);
+                mean += value;
             }
+
+            return mean / (increments.Count + 2);
         }
     }
 }

@@ -66,7 +66,7 @@
             this.radioButton_processable.TabStop = true;
             this.radioButton_processable.Text = "Обрабатываемый";
             this.radioButton_processable.UseVisualStyleBackColor = true;
-            this.radioButton_processable.CheckedChanged += new System.EventHandler(this.radioButton1_CheckedChanged);
+            this.radioButton_processable.CheckedChanged += new System.EventHandler(this.radioButton_processable_CheckedChanged);
             // 
             // radioButton_no_processable
             // 
@@ -79,7 +79,7 @@
             this.radioButton_no_processable.TabStop = true;
             this.radioButton_no_processable.Text = "Необрабытываемый";
             this.radioButton_no_processable.UseVisualStyleBackColor = true;
-            this.radioButton_no_processable.CheckedChanged += new System.EventHandler(this.radioButton2_CheckedChanged);
+            this.radioButton_no_processable.CheckedChanged += new System.EventHandler(this.radioButton_no_processable_CheckedChanged);
             // 
             // comboBox_type
             // 
@@ -93,7 +93,7 @@
             this.comboBox_type.Name = "comboBox_type";
             this.comboBox_type.Size = new System.Drawing.Size(153, 21);
             this.comboBox_type.TabIndex = 2;
-            this.comboBox_type.SelectedIndexChanged += new System.EventHandler(this.comboBox1_SelectedIndexChanged);
+            this.comboBox_type.SelectedIndexChanged += new System.EventHandler(this.comboBox_type_SelectedIndexChanged);
             // 
             // button_add
             // 
@@ -125,7 +125,7 @@
             this.textBox_name.Name = "textBox_name";
             this.textBox_name.Size = new System.Drawing.Size(343, 23);
             this.textBox_name.TabIndex = 10;
-            this.textBox_name.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
+            this.textBox_name.TextChanged += new System.EventHandler(this.textBox_name_TextChanged);
             // 
             // groupBox_name
             // 

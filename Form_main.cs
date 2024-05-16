@@ -1,29 +1,20 @@
 ﻿using Aspose.Cells;
-using Aspose.Cells.Drawing;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Diagnostics;
 using System.Drawing;
-using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.Windows.Forms.DataVisualization.Charting;
-using System.Xml.Linq;
-using static OOP_Course_work.Materials;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement.ProgressBar;
 
 namespace OOP_Course_work
 {
     public partial class MainForm : Form
     {
+        MainViewModel mainViewModel;
+
         public MainForm()
         {
             InitializeComponent();
+            mainViewModel = new MainViewModel(this);
             this.FormClosing += MainForm_FormClosing;
         }
 
@@ -36,80 +27,9 @@ namespace OOP_Course_work
             }
         }
 
-        // Список всех товаров на складе
-        List<Product> products = new List<Product>();
-
-        // Список всех материалов на складе
-        List<Materials.Material> materials = new List<Materials.Material>();
-
-        // Список используемых материалов
-        List<Materials.Material> use_materials = new List<Materials.Material>();
-
-        // Список поступлений и списаний
-        List<Accounting.Operation> operations = new List<Accounting.Operation>();
-
-        public List<Materials.Material> get_materials()
+        private void MainForm_Load(object sender, EventArgs e)
         {
-            return materials;
-        }
-
-        public void set_materials(List<Materials.Material> materials)
-        {
-            foreach (Materials.Material material in materials)
-            {
-                this.materials.Add(material);
-                Accounting.Operation operation = new Accounting.Operation(DateTime.Now, -materials.Last().get_price(), materials.Last().get_name());
-                operations.Add(operation);
-                add_row_operation(operation);
-            }
-        }
-
-        public List<Product> get_products()
-        {
-            return products;
-        }
-
-        public void set_products(List<Product> products)
-        {
-            this.products = products;
-        }
-
-        public List<Materials.Material> get_use_materials()
-        {
-            return use_materials;
-        }
-
-        public void set_use_materials(List<Materials.Material> materials)
-        {
-            this.use_materials = materials;
-        }
-
-        public List<Accounting.Operation> get_operations()
-        {
-            return operations;
-        }
-
-        public void set_operatins(List<Accounting.Operation> operations)
-        {
-            this.operations = operations;
-        }
-
-        private void Form1_Load(object sender, EventArgs e)
-        {
-            // Считываем данные с таблицы
-            string dataDir = Application.StartupPath + "\\book.xlsx";
-
-            Aspose aspose = new Aspose(dataDir, this);
-
-            products = aspose.warehouse_products(products);
-
-            materials = aspose.warehouse_materials(materials);
-
-            use_materials = aspose.use_materials(use_materials);
-
-            operations = aspose.operations(operations);
-
-            foreach (Materials.Material obj in materials)
+            foreach (Material obj in mainViewModel.get_materials())
             {
                 TreeNode node = new TreeNode(obj.get_name());
 
@@ -119,17 +39,17 @@ namespace OOP_Course_work
                 add_treeNode(node, obj);
             }
 
-            foreach (Materials.Material obj in use_materials)
+            foreach (Material obj in mainViewModel.get_use_materials())
             {
                 add_row_material(tableLayoutPanel_use_materials, obj);
             }
 
-            foreach (Product obj in products)
+            foreach (Product obj in mainViewModel.get_products())
             {
-                add_row(tableLayoutPanel_products, obj);
+                add_row_product(tableLayoutPanel_products, obj);
             }
 
-            foreach(Accounting.Operation operation in operations)
+            foreach (Operation operation in mainViewModel.get_operations())
             {
                 add_row_operation(operation);
             }
@@ -138,11 +58,27 @@ namespace OOP_Course_work
             listView_write_off.AutoResizeColumns(ColumnHeaderAutoResizeStyle.None);
         }
 
-        public void add_treeNode(TreeNode node, Materials.Material obj)
+        // Событие вызываемое при создании нового материала в диалоговом окне
+        public void add_materials(Material material)
+        {
+            TreeNode node = new TreeNode(material.get_name());
+
+            node.Tag = material;
+
+            add_treeNode(node, material);
+        }
+
+        // Событие вызываемое при создании нового материала в диалоговом окне
+        public void add_operation(Operation operation)
+        {
+            add_row_operation(operation);
+        }
+
+        private void add_treeNode(TreeNode node, Material obj)
         {
             TreeNode node_void = new TreeNode("");
 
-            if (obj.GetType() == typeof(Materials.Laser))
+            if (obj.GetType() == typeof(Laser))
             {
                 int count = treeView_warehouse_materials.Nodes[0].Nodes[0].Nodes.Count;
                 treeView_warehouse_materials.Nodes[0].Nodes[0].Nodes[count - 1].Remove();
@@ -150,7 +86,7 @@ namespace OOP_Course_work
                 treeView_warehouse_materials.Nodes[0].Nodes[0].Nodes.Add(node);
                 treeView_warehouse_materials.Nodes[0].Nodes[0].Nodes.Add(node_void);
             }
-            else if (obj.GetType() == typeof(Materials.PrinterFDM))
+            else if (obj.GetType() == typeof(PrinterFDM))
             {
                 int count = treeView_warehouse_materials.Nodes[0].Nodes[1].Nodes[0].Nodes.Count;
                 treeView_warehouse_materials.Nodes[0].Nodes[1].Nodes[0].Nodes[count - 1].Remove();
@@ -158,7 +94,7 @@ namespace OOP_Course_work
                 treeView_warehouse_materials.Nodes[0].Nodes[1].Nodes[0].Nodes.Add(node);
                 treeView_warehouse_materials.Nodes[0].Nodes[1].Nodes[0].Nodes.Add(node_void);
             }
-            else if (obj.GetType() == typeof(Materials.PrinterSLA))
+            else if (obj.GetType() == typeof(PrinterSLA))
             {
                 int count = treeView_warehouse_materials.Nodes[0].Nodes[1].Nodes[1].Nodes.Count;
                 treeView_warehouse_materials.Nodes[0].Nodes[1].Nodes[1].Nodes[count - 1].Remove();
@@ -166,7 +102,7 @@ namespace OOP_Course_work
                 treeView_warehouse_materials.Nodes[0].Nodes[1].Nodes[1].Nodes.Add(node);
                 treeView_warehouse_materials.Nodes[0].Nodes[1].Nodes[1].Nodes.Add(node_void);
             }
-            else if (obj.GetType() == typeof(Materials.Unprocessed))
+            else if (obj.GetType() == typeof(Unprocessed))
             {
                 int count = treeView_warehouse_materials.Nodes[1].Nodes.Count;
                 treeView_warehouse_materials.Nodes[1].Nodes[count - 1].Remove();
@@ -189,24 +125,24 @@ namespace OOP_Course_work
             {
                 if (tableLayoutPanel.Name == "tableLayoutPanel_use_materials")
                 {
-                    Materials.Material material = (Materials.Material)treeView_warehouse_materials.SelectedNode.Tag;
+                    Material material = (Material)treeView_warehouse_materials.SelectedNode.Tag;
 
                     add_row_material(tableLayoutPanel_use_materials, material);
 
                     treeView_warehouse_materials.Nodes.Remove(treeView_warehouse_materials.SelectedNode);
 
-                    materials.Remove(material);
+                    mainViewModel.remove_material(material);
 
-                    use_materials.Add(material);
+                    mainViewModel.add_use_materials(material);
                 }
                 else if(tableLayoutPanel.Name == "tableLayoutPanel_products")
                 {
                     // Открываем форму внесения нового товара
-                    var form_new_product = new Form_new_product(this);
+                    var form_new_product = new Form_new_product(mainViewModel);
                     var result = form_new_product.ShowDialog();
                     if(result == DialogResult.OK)
                     {
-                        add_row(tableLayoutPanel, products[products.Count - 1]);
+                        add_row_product(tableLayoutPanel, mainViewModel.get_products()[mainViewModel.get_products().Count - 1]);
                     }
                 }
             }
@@ -224,7 +160,7 @@ namespace OOP_Course_work
             }
         }
 
-        private void add_row(TableLayoutPanel tableLayoutPanel, Product product)
+        private void add_row_product(TableLayoutPanel tableLayoutPanel, Product product)
         {
             // Создание кнопки удаления
             var new_button_del = new System.Windows.Forms.Button();
@@ -240,7 +176,7 @@ namespace OOP_Course_work
             extra += "Название:\n" + product.get_name() + "\n\n";
             extra += "Описание:\n" + product.get_description() + "\n\n";
             extra += "Используемые материалы:\n";
-            foreach(Materials.Material material in product.get_components().ToArray())
+            foreach(Material material in product.get_components().ToArray())
             {
                 // Мера измерения
                 string measure = "";
@@ -248,25 +184,25 @@ namespace OOP_Course_work
                 // Особенность материала
                 string feature = "";
 
-                if (material.GetType() == typeof(Materials.PrinterSLA))
+                if (material.GetType() == typeof(PrinterSLA))
                 {
                     measure = "мл";
 
-                    Materials.PrinterSLA sla = (Materials.PrinterSLA)material;
+                    PrinterSLA sla = (PrinterSLA)material;
                     feature = sla.get_water_washer();
                 }
-                else if (material.GetType() == typeof(Materials.Laser))
+                else if (material.GetType() == typeof(Laser))
                 {
                     measure = "мм^2";
 
-                    Materials.Laser laser = (Materials.Laser)material;
+                    Laser laser = (Laser)material;
                     feature = "Толщина - " + laser.get_thickness().ToString();
                 }
-                else if (material.GetType() == typeof(Materials.PrinterFDM))
+                else if (material.GetType() == typeof(PrinterFDM))
                 {
                     measure = "г";
 
-                    Materials.PrinterFDM fdm = (Materials.PrinterFDM)material;
+                    PrinterFDM fdm = (PrinterFDM)material;
                     feature = fdm.get_heat_resistant();
                 }
 
@@ -325,7 +261,7 @@ namespace OOP_Course_work
             tableLayoutPanel.Controls.Add(new_button_extra, 2, tableLayoutPanel.RowCount - 1);
         }
 
-        private void add_row_material(TableLayoutPanel tableLayoutPanel, Materials.Material material)
+        private void add_row_material(TableLayoutPanel tableLayoutPanel, Material material)
         {
             // Создание кнопки удаления
             var new_button_del = new System.Windows.Forms.Button();
@@ -371,10 +307,10 @@ namespace OOP_Course_work
         private void remove_row_material(TableLayoutPanel tableLayoutPanel, int rowIndex)
         { 
             var control = tableLayoutPanel.GetControlFromPosition(1, rowIndex);
-            Materials.Material material = (Materials.Material)control.Tag;
-            
+            Material material = (Material)control.Tag;
+
             // Удаляем объект из списка
-            use_materials.Remove(material);
+            mainViewModel.remove_use_material(material);
 
             // Удаляем текстовое поле из удаляемой строки
             tableLayoutPanel.Controls.Remove(control);
@@ -404,7 +340,7 @@ namespace OOP_Course_work
             tableLayoutPanel.Size = new Size(343, tableLayoutPanel.Size.Height - 46);
         }
 
-        public void remove_row_product(TableLayoutPanel tableLayoutPanel, int rowIndex)
+        private void remove_row_product(TableLayoutPanel tableLayoutPanel, int rowIndex)
         {
             var control = tableLayoutPanel.GetControlFromPosition(1, rowIndex);
             Product product = (Product)control.Tag;
@@ -413,12 +349,12 @@ namespace OOP_Course_work
             float value = product.get_price();
             string description = product.get_description();
 
-            Accounting.Operation operation = new Accounting.Operation(DateTime.Now, value, description);
-            operations.Add(operation);
+            Operation operation = new Operation(DateTime.Now, value, description);
+            mainViewModel.add_operatin(operation);
             add_row_operation(operation);
 
             // Удаляем объект из списка
-            products.Remove(product);
+            mainViewModel.remove_product(product);
 
             // Удаляем текстовое поле из удаляемой строки
             tableLayoutPanel.Controls.Remove(control);
@@ -452,11 +388,8 @@ namespace OOP_Course_work
         private void button_new_material_Click(object sender, EventArgs e)
         {
             // Открываем форму внесения нового материала
-            var form_new_material = new Form_new_material(this);
+            var form_new_material = new Form_new_material(mainViewModel);
             var result = form_new_material.ShowDialog();
-            if(result == DialogResult.OK)
-            {
-            }
         }
 
         private void treeView_warehouse_materials_NodeMouseClick(object sender, TreeNodeMouseClickEventArgs e)
@@ -483,7 +416,7 @@ namespace OOP_Course_work
             richTextBox_description.Visible = true;
         }
 
-        private void add_row_operation(Accounting.Operation operation)
+        private void add_row_operation(Operation operation)
         {
 
             if (operation.get_value() >= 0)
@@ -512,13 +445,13 @@ namespace OOP_Course_work
             listView_write_off.Items.Clear();
             chart_extrapolation.Series.Clear();
 
-            List<Accounting.Operation> operations_filtr = new List<Accounting.Operation>();
+            List<Operation> operations_filtr = new List<Operation>();
 
             // Получаем значения для фильтрации
             DateTime left = dateTimePicker_left.Value;
             DateTime right = dateTimePicker_right.Value;
 
-            foreach (var operation in operations) 
+            foreach (var operation in mainViewModel.get_operations()) 
             { 
                 if(operation.get_data() > left)
                 {
@@ -530,8 +463,8 @@ namespace OOP_Course_work
                 }
             }
 
-            Accounting.Calculation calculation = new Accounting.Calculation(operations_filtr);
-            List<float> increments = new List<float>();
+            Accounting calculation = new Accounting(operations_filtr);
+            List<float> increments;
             float mean;
 
             increments = calculation.get_y();

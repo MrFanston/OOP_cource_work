@@ -12,11 +12,9 @@ namespace OOP_Course_work
         string name;
         string description;
         float price;
-        List<Materials.Material> components = new List<Materials.Material>();
-        List<float> values_use = new List<float>();
+        List<Material> components = new List<Material>();
 
-
-        public Product(string name, string description, List<Materials.Material> materials) 
+        public Product(string name, string description, List<Material> materials) 
         {
             this.name = name;
             this.description = description;
@@ -25,9 +23,9 @@ namespace OOP_Course_work
         }
 
         // Генератор себестоимости товара по материалам
-        private float price_generator(List<Materials.Material> components)
+        private float price_generator(List<Material> components)
         {
-            foreach (Materials.Material component in components)
+            foreach (Material component in components)
             {
                 this.price += component.get_value_current() / component.get_value_max() * component.get_price();
             }
@@ -49,7 +47,7 @@ namespace OOP_Course_work
             return price;
         }
 
-        public List<Materials.Material> get_components()
+        public List<Material> get_components()
         {
             return components;
         }

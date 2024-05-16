@@ -1,26 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Timers;
 using System.Windows.Forms;
 
 namespace OOP_Course_work
 {
     public partial class Form_new_product : Form
     {
-        MainForm main_form;
-        List<Materials.Material> use_materials;
+        MainViewModel mainViewModel;
+        List<Material> use_materials;
 
-        public Form_new_product(MainForm Form_main)
+        public Form_new_product(MainViewModel mainViewModel)
         {
             InitializeComponent();
-            main_form = Form_main;
-            use_materials = main_form.get_use_materials();
+            this.mainViewModel = mainViewModel;
+            use_materials = mainViewModel.get_use_materials();
         }
 
         private void Form_new_product_Load(object sender, EventArgs e)
@@ -105,7 +98,7 @@ namespace OOP_Course_work
         {
             string name_product = textBox_name.Text;
             string descripions = richTextBox_description.Text;
-            List<Materials.Material> product_materials = new List<Materials.Material>();
+            List<Material> product_materials = new List<Material>();
 
             for(int i = 0; i < use_materials.Count; i++)
             {
@@ -113,10 +106,10 @@ namespace OOP_Course_work
                 if (checkBox.Checked)
                 {
                     // Используемый материал для создания товара
-                    Materials.Material material = (Materials.Material)checkBox.Tag;
+                    Material material = (Material)checkBox.Tag;
 
                     // Копия материала, но в свойстве текущего значения задано используемое количество для товара
-                    Materials.Material component;
+                    Material component;
 
                     string name_material = material.get_name();
                     float price = material.get_price();
@@ -124,25 +117,25 @@ namespace OOP_Course_work
                     float value_current = (float)((NumericUpDown)tableLayoutPanel_use_materials.Controls[3 + i * 4]).Value;
                     material.set_value_current(material.get_value_current() - value_current);
 
-                    if (material.GetType() == typeof(Materials.Unprocessed))
+                    if (material.GetType() == typeof(Unprocessed))
                     {
-                        component = new Materials.Unprocessed(name_material, price);
+                        component = new Unprocessed(name_material, price);
                     }
-                    else if (material.GetType() == typeof(Materials.Laser))
+                    else if (material.GetType() == typeof(Laser))
                     {
-                        float thickness = ((Materials.Laser)material).get_thickness();
-                        component = new Materials.Laser(name_material, price, thickness, value_max, value_current);
+                        float thickness = ((Laser)material).get_thickness();
+                        component = new Laser(name_material, price, thickness, value_max, value_current);
                     }
-                    else if (material.GetType() == typeof(Materials.PrinterFDM))
+                    else if (material.GetType() == typeof(PrinterFDM))
                     {
-                        string heat_resistant = ((Materials.PrinterFDM)material).get_heat_resistant();
-                        component = new Materials.PrinterFDM(name_material, price, heat_resistant, value_max, value_current);
+                        string heat_resistant = ((PrinterFDM)material).get_heat_resistant();
+                        component = new PrinterFDM(name_material, price, heat_resistant, value_max, value_current);
                     }
                     // (material.GetType() == typeof(Materials.PrinterSLA))
                     else
                     {
-                        string water_washer = ((Materials.PrinterSLA)material).get_water_washer();
-                        component = new Materials.PrinterSLA(name_material, price, water_washer, value_max, value_current);
+                        string water_washer = ((PrinterSLA)material).get_water_washer();
+                        component = new PrinterSLA(name_material, price, water_washer, value_max, value_current);
                     }
 
                     product_materials.Add(component);
@@ -151,10 +144,8 @@ namespace OOP_Course_work
             
             Product product = new Product(name_product, descripions, product_materials);
 
-            List<Product> products = main_form.get_products();
-            products.Add(product);
+            mainViewModel.add_product(product);
 
-            main_form.set_products(products);
             this.DialogResult = DialogResult.OK;
             this.Close();
         }
