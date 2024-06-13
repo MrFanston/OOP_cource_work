@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Windows.Forms;
 
@@ -69,11 +70,6 @@ namespace OOP_Course_work
             return products;
         }
 
-        public void set_products(List<Product> products)
-        {
-            this.products = products;
-        }
-
         public void add_product(Product product)
         {
             this.products.Add(product);
@@ -87,11 +83,6 @@ namespace OOP_Course_work
         public List<Material> get_use_materials()
         {
             return use_materials;
-        }
-
-        public void set_use_materials(List<Material> materials)
-        {
-            this.use_materials = materials;
         }
 
         public void add_use_materials(Material material)
@@ -109,15 +100,39 @@ namespace OOP_Course_work
             return operations;
         }
 
-        public void set_operatins(List<Operation> operations)
-        {
-            this.operations = operations;
-        }
-
         public void add_operatin(Operation operation)
         {
             operations.Add(operation);
         }
 
+        public List<Operation> calculation_operations_filtr(DateTime left, DateTime right)
+        {
+            List<Operation> operations_filtr = new List<Operation>();
+
+            foreach (var operation in get_operations())
+            {
+                if (operation.get_data() > left)
+                {
+                    if (operation.get_data() < right)
+                    { 
+                        operations_filtr.Add(operation);
+                    }
+                }
+            }
+
+            return operations_filtr;
+        }
+
+        public List<float> calculation_increments(List<Operation> operations_filtr)
+        {
+            Accounting calculation = new Accounting(operations_filtr);
+
+            List<float> increments = calculation.get_y();
+            float mean = calculation.extrapolation();
+
+            increments.Add(mean);
+
+            return increments;
+        }
     }
 }

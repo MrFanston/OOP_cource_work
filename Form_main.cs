@@ -445,30 +445,22 @@ namespace OOP_Course_work
             listView_write_off.Items.Clear();
             chart_extrapolation.Series.Clear();
 
-            List<Operation> operations_filtr = new List<Operation>();
+            List<Operation> operations_filtr;
 
             // Получаем значения для фильтрации
             DateTime left = dateTimePicker_left.Value;
             DateTime right = dateTimePicker_right.Value;
 
-            foreach (var operation in mainViewModel.get_operations()) 
-            { 
-                if(operation.get_data() > left)
-                {
-                    if(operation.get_data() < right)
-                    {
-                        add_row_operation(operation);
-                        operations_filtr.Add(operation);
-                    }
-                }
+            // Лист отсортированных в заданном интервале операций
+            operations_filtr = mainViewModel.calculation_operations_filtr(left, right);
+            
+            foreach (Operation operation in operations_filtr)
+            {
+                add_row_operation(operation);
             }
 
-            Accounting calculation = new Accounting(operations_filtr);
-            List<float> increments;
-            float mean;
-
-            increments = calculation.get_y();
-            mean = calculation.extrapolation();
+            // Точки приращений от начальной операции до последней + экстраполяционное приращение
+            List<float> increments = mainViewModel.calculation_increments(operations_filtr);
 
             // Рисуем график
             // Вносим приращения исходных значений
@@ -477,19 +469,19 @@ namespace OOP_Course_work
             chart_extrapolation.Series["increment"].Color = Color.Blue;
 
             int x = 0;
-            //chart_extrapolation.Series["increment"].Points.AddXY(x++, 0);
-            for (int i = 0; i < increments.Count; i++)
+            
+            for (int i = 0; i < increments.Count - 1; i++)
             {
                 chart_extrapolation.Series["increment"].Points.AddXY(x++, increments[i]);
             }
 
-            // Вносим значение апроксимации
+            // Вносим значение экстраполяции
             chart_extrapolation.Series.Add("extrapolation");
             chart_extrapolation.Series["extrapolation"].ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
             chart_extrapolation.Series["extrapolation"].Color = Color.Red;
 
-            chart_extrapolation.Series["extrapolation"].Points.AddXY(--x, increments.Last());
-            chart_extrapolation.Series["extrapolation"].Points.AddXY(++x, increments.Last() + mean);
+            chart_extrapolation.Series["extrapolation"].Points.AddXY(--x, increments[increments.Count - 2]);
+            chart_extrapolation.Series["extrapolation"].Points.AddXY(++x, increments[increments.Count - 2] + increments.Last());
 
         }
     }
